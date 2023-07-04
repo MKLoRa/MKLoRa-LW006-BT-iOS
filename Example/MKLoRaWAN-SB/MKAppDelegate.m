@@ -8,11 +8,21 @@
 
 #import "MKAppDelegate.h"
 
+#import "MKSBScanController.h"
+
 @implementation MKAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _window.backgroundColor = [UIColor whiteColor];
+    
+    MKSBScanController *vc = [[MKSBScanController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    _window.rootViewController = nav;
+    [_window makeKeyAndVisible];
+    
     return YES;
 }
 

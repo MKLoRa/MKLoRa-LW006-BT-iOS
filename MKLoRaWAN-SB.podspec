@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MKLoRaWAN-SB'
-  s.version          = '0.1.0'
+  s.version          = '0.0.1'
   s.summary          = 'A short description of MKLoRaWAN-SB.'
 
 # This description is used to generate tags and improve search results.
@@ -28,13 +28,23 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/aadyx2007@163.com/MKLoRaWAN-SB.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '12.0'
+  
+  s.resource_bundles = {
+    'MKLoRaWAN-SB' => ['MKLoRaWAN-SB/Assets/*.png']
+  }
 
   s.source_files = 'MKLoRaWAN-SB/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'MKLoRaWAN-SB' => ['MKLoRaWAN-SB/Assets/*.png']
-  # }
+  s.dependency 'MKBaseModuleLibrary'
+  s.dependency 'MKCustomUIModule'
+  s.dependency 'MKBaseBleModule'
+  
+  s.dependency 'CTMediator'
+  s.dependency 'FMDB'
+  s.dependency 'HHTransition'
+  s.dependency 'MLInputDodger'
+  s.dependency 'iOSDFULibrary'
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
