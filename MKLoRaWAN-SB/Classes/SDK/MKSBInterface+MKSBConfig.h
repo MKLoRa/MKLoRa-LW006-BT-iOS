@@ -13,53 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MKSBInterface (MKSBConfig)
 
 #pragma mark ****************************************System************************************************
-/// Configure the working mode of the device.
-/// @param deviceMode device mode
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configWorkMode:(mk_sb_deviceMode)deviceMode
-                 sucBlock:(void (^)(void))sucBlock
-              failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Heartbeat Interval.
-/// @param interval 1Min~14400 Mins.
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configHeartbeatInterval:(NSInteger)interval
-                          sucBlock:(void (^)(void))sucBlock
-                       failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Configure three-axis sensor wake-up conditions.
-/// @param threshold 1 x 16ms ~20 x 16ms
-/// @param duration 1 x 10ms ~ 10 x 10ms
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configThreeAxisWakeupConditions:(NSInteger)threshold
-                                  duration:(NSInteger)duration
-                                  sucBlock:(void (^)(void))sucBlock
-                               failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Configure three-axis data motion detection judgment parameters.
-/// @param threshold 10 x 2mg ~ 250 x 2mg
-/// @param duration 1 x 5ms ~ 50 x 5ms
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configThreeAxisMotionParameters:(NSInteger)threshold
-                                  duration:(NSInteger)duration
-                                  sucBlock:(void (^)(void))sucBlock
-                               failedBlock:(void (^)(NSError *error))failedBlock;
-
-
-
-
-
-
-
-
-
-
-
-
 /// Device shutdown.
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
@@ -94,17 +47,13 @@ NS_ASSUME_NONNULL_BEGIN
                  sucBlock:(void (^)(void))sucBlock
               failedBlock:(void (^)(NSError *error))failedBlock;
 
-
-
-/// Configure Indicator Settings.
-/// @param protocol protocol.
+/// Configure the working mode of the device.
+/// @param deviceMode device mode
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)sb_configIndicatorSettings:(id <mk_sb_indicatorSettingsProtocol>)protocol
-                          sucBlock:(void (^)(void))sucBlock
-                       failedBlock:(void (^)(NSError *error))failedBlock;
-
-
++ (void)sb_configWorkMode:(mk_sb_deviceMode)deviceMode
+                 sucBlock:(void (^)(void))sucBlock
+              failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Configure Shutdown Payload Status.
 /// @param isOn isOn
@@ -113,6 +62,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sb_configShutdownPayloadStatus:(BOOL)isOn
                               sucBlock:(void (^)(void))sucBlock
                            failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// OFF by Button.
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configOFFByButton:(BOOL)isOn
+                    sucBlock:(void (^)(void))sucBlock
+                 failedBlock:(void (^)(NSError *error))failedBlock;
 
 ///  Whether to trigger a heartbeat when the device is low on battery.
 /// @param isOn isOn
@@ -130,11 +87,77 @@ NS_ASSUME_NONNULL_BEGIN
                        sucBlock:(void (^)(void))sucBlock
                     failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Heartbeat Interval.
+/// @param interval 1Min~14400 Mins.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configHeartbeatInterval:(NSInteger)interval
+                          sucBlock:(void (^)(void))sucBlock
+                       failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure three-axis sensor wake-up conditions.
+/// @param threshold 1 x 16ms ~20 x 16ms
+/// @param duration 1 x 10ms ~ 10 x 10ms
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configThreeAxisWakeupConditions:(NSInteger)threshold
+                                  duration:(NSInteger)duration
+                                  sucBlock:(void (^)(void))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure three-axis data motion detection judgment parameters.
+/// @param threshold 10 x 2mg ~ 250 x 2mg
+/// @param duration 1 x 5ms ~ 50 x 5ms
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configThreeAxisMotionParameters:(NSInteger)threshold
+                                  duration:(NSInteger)duration
+                                  sucBlock:(void (^)(void))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Buzzer sound selection.
+/// @param type type
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configBuzzerSoundType:(mk_sb_buzzerSoundType)type
+                        sucBlock:(void (^)(void))sucBlock
+                     failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Motor Vibration Strength.
+/// @param intensity intensity
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configVibrationIntensity:(mk_sb_vibrationIntensity)intensity
+                           sucBlock:(void (^)(void))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Reset Motor State.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_resetMotorStateWithSucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure Indicator Settings.
+/// @param protocol protocol.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configIndicatorSettings:(id <mk_sb_indicatorSettingsProtocol>)protocol
+                          sucBlock:(void (^)(void))sucBlock
+                       failedBlock:(void (^)(NSError *error))failedBlock;
+
 /// Battery Reset.
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
 + (void)sb_batteryResetWithSucBlock:(void (^)(void))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// When the battery run out, the device will be turned on when the device is in charged.
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configAutoPowerOn:(BOOL)isOn
+                    sucBlock:(void (^)(void))sucBlock
+                 failedBlock:(void (^)(NSError *error))failedBlock;
 
 #pragma mark ****************************************蓝牙相关参数************************************************
 
@@ -680,6 +703,70 @@ NS_ASSUME_NONNULL_BEGIN
                              failedBlock:(void (^)(NSError *error))failedBlock;
 
 #pragma mark ****************************************定位参数************************************************
+/// Configure the WIFI positioning data format.
+/// @param dataType format.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configWifiDataType:(mk_sb_dataFormat)dataType
+                     sucBlock:(void (^)(void))sucBlock
+                  failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// WIFI Fix Mechanism.
+/// @param mechanism mechanism
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configWifiFixMechanism:(mk_sb_wifiFixMechanism)mechanism
+                         sucBlock:(void (^)(void))sucBlock
+                      failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure the WIFI positioning timeout.
+/// @param interval 1~4.   unit : 2.5s.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configWifiPositioningTimeout:(NSInteger)interval
+                               sucBlock:(void (^)(void))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure the number of BSSIDs with successful WIFI positioning.
+/// @param number 1~5.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configWifiNumberOfBSSID:(NSInteger)number
+                          sucBlock:(void (^)(void))sucBlock
+                       failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Bluetooth Fix Mechanism.
+/// @param priority priority
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configBluetoothFixMechanism:(mk_sb_bluetoothFixMechanism)priority
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Positioning Timeout Of Ble.
+/// @param timeout 1s~10s
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configBlePositioningTimeout:(NSInteger)timeout
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// The number of MACs for Bluetooth positioning.
+/// @param number 1~5
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configBlePositioningNumberOfMac:(NSInteger)number
+                                  sucBlock:(void (^)(void))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// GPS Positioning.
+/// @param type type
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_configGPSPositioning:(mk_sb_gpsPositioningType)type
+                       sucBlock:(void (^)(void))sucBlock
+                    failedBlock:(void (^)(NSError *error))failedBlock;
+
 /// Configure GPS positioning timeout.(L76C)
 /// @param timeout 60s~600s
 /// @param sucBlock Success callback
@@ -756,69 +843,6 @@ NS_ASSUME_NONNULL_BEGIN
                                        sucBlock:(void (^)(void))sucBlock
                                     failedBlock:(void (^)(NSError *error))failedBlock;
 
-
-
-
-
-
-
-
-/// Configure the WIFI positioning data format.
-/// @param dataType format.
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configWifiDataType:(mk_sb_dataFormat)dataType
-                     sucBlock:(void (^)(void))sucBlock
-                  failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// WIFI Fix Mechanism.
-/// @param mechanism mechanism
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configWifiFixMechanism:(mk_sb_wifiFixMechanism)mechanism
-                         sucBlock:(void (^)(void))sucBlock
-                      failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Configure the WIFI positioning timeout.
-/// @param interval 1~4.   unit : 2.5s.
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configWifiPositioningTimeout:(NSInteger)interval
-                               sucBlock:(void (^)(void))sucBlock
-                            failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Configure the number of BSSIDs with successful WIFI positioning.
-/// @param number 1~5.
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configWifiNumberOfBSSID:(NSInteger)number
-                          sucBlock:(void (^)(void))sucBlock
-                       failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Bluetooth Fix Mechanism.
-/// @param priority priority
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configBluetoothFixMechanism:(mk_sb_bluetoothFixMechanism)priority
-                              sucBlock:(void (^)(void))sucBlock
-                           failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Positioning Timeout Of Ble.
-/// @param timeout 1s~10s
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configBlePositioningTimeout:(NSInteger)timeout
-                              sucBlock:(void (^)(void))sucBlock
-                           failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// The number of MACs for Bluetooth positioning.
-/// @param number 1~5
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configBlePositioningNumberOfMac:(NSInteger)number
-                                  sucBlock:(void (^)(void))sucBlock
-                               failedBlock:(void (^)(NSError *error))failedBlock;
-
 ///  Whether to enable positioning when the device fails to connect to the Lorawan network.
 /// @param isOn isOn
 /// @param sucBlock Success callback
@@ -827,31 +851,6 @@ NS_ASSUME_NONNULL_BEGIN
                    sucBlock:(void (^)(void))sucBlock
                 failedBlock:(void (^)(NSError *error))failedBlock;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /// Configure GPS data transfer format.(LR1110)
 /// @param format format
 /// @param sucBlock Success callback
@@ -859,14 +858,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sb_configLRGPSDataType:(mk_sb_dataFormat)format
                       sucBlock:(void (^)(void))sucBlock
                    failedBlock:(void (^)(NSError *error))failedBlock;
-
-
-
-
-
-
-
-
 
 #pragma mark ****************************************设备lorawan信息设置************************************************
 
@@ -1187,70 +1178,6 @@ NS_ASSUME_NONNULL_BEGIN
                                           end:(BOOL)end
                                      sucBlock:(void (^)(void))sucBlock
                                   failedBlock:(void (^)(NSError *error))failedBlock;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/// Configure the state of the Shock detection switch.
-/// @param isOn isOn
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configShockDetectionStatus:(BOOL)isOn
-                             sucBlock:(void (^)(void))sucBlock
-                          failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Configure the report interval of the Shock detection.
-/// @param interval 3s~255s
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configShockDetectionReportInterval:(NSInteger)interval
-                                     sucBlock:(void (^)(void))sucBlock
-                                  failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Configure Shock Timeout.
-/// @param interval 1s~20s
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configShockTimeout:(NSInteger)interval
-                     sucBlock:(void (^)(void))sucBlock
-                  failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Clear the idle state of the device.
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configIdleStutasResetWithSucBlock:(void (^)(void))sucBlock
-                                 failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Configure Active State Count.
-/// @param isOn isOn
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configActiveStateCountStatus:(BOOL)isOn
-                               sucBlock:(void (^)(void))sucBlock
-                            failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Configure Active State Timeout.
-/// @param interval 1s~86400s
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_configActiveStateTimeout:(long long)interval
-                           sucBlock:(void (^)(void))sucBlock
-                        failedBlock:(void (^)(NSError *error))failedBlock;
 
 #pragma mark ****************************************存储协议************************************************
 /// Read the data stored by the device every day.

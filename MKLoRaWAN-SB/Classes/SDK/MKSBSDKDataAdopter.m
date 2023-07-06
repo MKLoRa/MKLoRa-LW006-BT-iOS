@@ -425,14 +425,23 @@
 }
 
 + (NSDictionary *)fetchIndicatorSettings:(NSString *)content {
-    NSString *binary = [MKBLEBaseSDKAdopter binaryByhex:[content substringWithRange:NSMakeRange(0, 2)]];
-    BOOL LowPower = [[binary substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"1"];
-    BOOL networkCheck = [[binary substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"1"];
-    BOOL inFix = [[binary substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"1"];
-    BOOL fixSuccessful = [[binary substringWithRange:NSMakeRange(4, 1)] isEqualToString:@"1"];
-    BOOL failToFix = [[binary substringWithRange:NSMakeRange(3, 1)] isEqualToString:@"1"];
+    NSString *highBinary = [MKBLEBaseSDKAdopter binaryByhex:[content substringWithRange:NSMakeRange(0, 2)]];
+    NSString *lowBinary = [MKBLEBaseSDKAdopter binaryByhex:[content substringWithRange:NSMakeRange(2, 2)]];
+    BOOL deviceState = [[lowBinary substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"1"];
+    BOOL LowPower = [[lowBinary substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"1"];
+    BOOL charging = [[lowBinary substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"1"];
+    BOOL fullCharge = [[lowBinary substringWithRange:NSMakeRange(4, 1)] isEqualToString:@"1"];
+    BOOL bluetoothConnection = [[lowBinary substringWithRange:NSMakeRange(3, 1)] isEqualToString:@"1"];
+    BOOL networkCheck = [[lowBinary substringWithRange:NSMakeRange(2, 1)] isEqualToString:@"1"];
+    BOOL inFix = [[lowBinary substringWithRange:NSMakeRange(1, 1)] isEqualToString:@"1"];
+    BOOL fixSuccessful = [[lowBinary substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"1"];
+    BOOL failToFix = [[highBinary substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"1"];
     return @{
+        @"deviceState":@(deviceState),
         @"lowPower":@(LowPower),
+        @"charging":@(charging),
+        @"fullCharge":@(fullCharge),
+        @"bluetoothConnection":@(bluetoothConnection),
         @"networkCheck":@(networkCheck),
         @"inFix":@(inFix),
         @"fixSuccessful":@(fixSuccessful),
@@ -444,15 +453,23 @@
     if (![protocol conformsToProtocol:@protocol(mk_sb_indicatorSettingsProtocol)]) {
         return @"";
     }
-    NSString *LowPower = (protocol.LowPower ? @"1" : @"0");
-    NSString *NetworkCheck = (protocol.NetworkCheck ? @"1" : @"0");
-    NSString *InFix = (protocol.InFix ? @"1" : @"0");
-    NSString *FixSuccessful = (protocol.FixSuccessful ? @"1" : @"0");
-    NSString *FailToFix = (protocol.FailToFix ? @"1" : @"0");
+    NSString *deviceState = (protocol.deviceState ? @"1" : @"0");
+    NSString *lowPower = (protocol.lowPower ? @"1" : @"0");
+    NSString *charging = (protocol.charging ? @"1" : @"0");
+    NSString *fullCharge = (protocol.fullCharge ? @"1" : @"0");
+    NSString *bluetoothConnection = (protocol.bluetoothConnection ? @"1" : @"0");
+    NSString *networkCheck = (protocol.networkCheck ? @"1" : @"0");
+    NSString *inFix = (protocol.inFix ? @"1" : @"0");
+    NSString *fixSuccessful = (protocol.fixSuccessful ? @"1" : @"0");
+    NSString *failToFix = (protocol.failToFix ? @"1" : @"0");
     
-    NSString *string = [NSString stringWithFormat:@"%@%@%@%@%@%@",@"000",FailToFix,FixSuccessful,InFix,NetworkCheck,LowPower];
+    NSString *lowString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",fixSuccessful,inFix,networkCheck,bluetoothConnection,fullCharge,charging,lowPower,deviceState];
+    NSString *lowHex = [MKBLEBaseSDKAdopter getHexByBinary:lowString];
+    NSString *hightString = [NSString stringWithFormat:@"%@%@",@"0000011",failToFix];
+    NSString *highHex = [MKBLEBaseSDKAdopter getHexByBinary:hightString];
     
-    return [MKBLEBaseSDKAdopter getHexByBinary:string];
+    
+    return [highHex stringByAppendingString:lowHex];
 }
 
 + (NSString *)fetchLRPositioningSystemString:(mk_sb_positioningSystem)system {

@@ -37,8 +37,25 @@ typedef NS_ENUM(NSInteger, mk_sb_alertAlarmTriggerMode) {
 };
 
 typedef NS_ENUM(NSInteger, mk_sb_lowPowerPrompt) {
-    mk_sb_lowPowerPrompt_fivePercent,
-    mk_sb_lowPowerPrompt_tenPercent
+    mk_sb_lowPowerPrompt_tenPercent,
+    mk_sb_lowPowerPrompt_twentyPercent,
+    mk_sb_lowPowerPrompt_thirtyPercent,
+    mk_sb_lowPowerPrompt_fortyPercent,
+    mk_sb_lowPowerPrompt_fiftyPercent,
+    mk_sb_lowPowerPrompt_sixtyPercent,
+};
+
+typedef NS_ENUM(NSInteger, mk_sb_buzzerSoundType) {
+    mk_sb_buzzerSoundType_no,
+    mk_sb_buzzerSoundType_alarm,
+    mk_sb_buzzerSoundType_normal,
+};
+
+typedef NS_ENUM(NSInteger, mk_sb_vibrationIntensity) {
+    mk_sb_vibrationIntensity_no,
+    mk_sb_vibrationIntensity_low,
+    mk_sb_vibrationIntensity_medium,
+    mk_sb_vibrationIntensity_high,
 };
 
 typedef NS_ENUM(NSInteger, mk_sb_positioningStrategy) {
@@ -170,13 +187,22 @@ typedef NS_ENUM(NSInteger, mk_sb_bluetoothFixMechanism) {
     mk_sb_bluetoothFixMechanism_rssiPriority,
 };
 
+typedef NS_ENUM(NSInteger, mk_sb_gpsPositioningType) {
+    mk_sb_gpsPositioningType_traditionalGpsModule,
+    mk_sb_gpsPositioningType_loRaCloud
+};
+
 @protocol mk_sb_indicatorSettingsProtocol <NSObject>
 
-@property (nonatomic, assign)BOOL LowPower;
-@property (nonatomic, assign)BOOL NetworkCheck;
-@property (nonatomic, assign)BOOL InFix;
-@property (nonatomic, assign)BOOL FixSuccessful;
-@property (nonatomic, assign)BOOL FailToFix;
+@property (nonatomic, assign)BOOL deviceState;
+@property (nonatomic, assign)BOOL lowPower;
+@property (nonatomic, assign)BOOL charging;
+@property (nonatomic, assign)BOOL fullCharge;
+@property (nonatomic, assign)BOOL bluetoothConnection;
+@property (nonatomic, assign)BOOL networkCheck;
+@property (nonatomic, assign)BOOL inFix;
+@property (nonatomic, assign)BOOL fixSuccessful;
+@property (nonatomic, assign)BOOL failToFix;
 
 @end
 

@@ -11,25 +11,27 @@ typedef NS_ENUM(NSInteger, mk_sb_taskOperationID) {
     mk_sb_taskReadDeviceTypeOperation,         //读取产品类型
     
 #pragma mark - 系统参数读取
+    mk_sb_taskReadTimeZoneOperation,            //读取时区
+    mk_sb_taskReadMacAddressOperation,              //读取mac地址
+    mk_sb_taskReadSelftestStatusOperation,          //读取自检故障原因
+    mk_sb_taskReadPCBAStatusOperation,              //读取产测状态
+    mk_sb_taskReadBatteryVoltageOperation,          //读取电池电量
     mk_sb_taskReadWorkModeOperation,            //读取工作模式
+    mk_sb_taskReadShutdownPayloadStatusOperation,   //读取关机信息上报状态
+    mk_sb_taskReadOffByButtonOperation,             //读取按键关机功能开关
+    mk_sb_taskReadLowPowerPayloadStatusOperation,   //读取低电触发心跳开关状态
+    mk_sb_taskReadLowPowerPromptOperation,          //读取低电百分比
     mk_sb_taskReadHeartbeatIntervalOperation,   //读取设备心跳间隔
     mk_sb_taskReadThreeAxisWakeupConditionsOperation,       //读取三轴唤醒条件
     mk_sb_taskReadThreeAxisMotionParametersOperation,       //读取运动检测判断条件
-    
-    
-    
-    mk_sb_taskReadTimeZoneOperation,            //读取时区
-    
+    mk_sb_taskReadBuzzerSoundTypeOperation,         //读取蜂鸣器声效选择
+    mk_sb_taskReadVibrationIntensityOperation,      //读取马达震动强度
+    mk_sb_taskReadMotorStateOperation,              //读取马达异常状态
     mk_sb_taskReadIndicatorSettingsOperation,   //读取指示灯开关状态
-    mk_sb_taskReadShutdownPayloadStatusOperation,   //读取关机信息上报状态
-    mk_sb_taskReadLowPowerPayloadStatusOperation,   //读取低电触发心跳开关状态
-    mk_sb_taskReadLowPowerPromptOperation,          //读取低电百分比
-    mk_sb_taskReadBatteryVoltageOperation,          //读取电池电量
-    mk_sb_taskReadMacAddressOperation,              //读取mac地址
-    mk_sb_taskReadPCBAStatusOperation,              //读取产测状态
-    mk_sb_taskReadSelftestStatusOperation,          //读取自检故障原因
     mk_sb_taskReadBatteryInformationOperation,      //读取电池电量消耗
-    
+    mk_sb_taskReadAutoPowerOnOperation,             //读取充电自动开机开关
+    mk_sb_taskReadHardwareTypeOperation,            //读取硬件版本
+
 #pragma mark - 蓝牙参数读取
     mk_sb_taskReadConnectationNeedPasswordOperation,    //读取连接是否需要密码
     mk_sb_taskReadPasswordOperation,                    //读取连接密码
@@ -101,6 +103,14 @@ typedef NS_ENUM(NSInteger, mk_sb_taskOperationID) {
     mk_sb_taskReadFilterByOtherConditionsOperation,     //读取Other的过滤条件列表
     
 #pragma mark - 定位参数读取
+    mk_sb_taskReadWifiDataTypeOperation,        //读取WIFI定位数据格式
+    mk_sb_taskReadWifiFixMechanismOperation,    //读取WIFI定位机制
+    mk_sb_taskReadWifiPositioningTimeoutOperation,  //读取WIFI扫描超时时间
+    mk_sb_taskReadWifiNumberOfBSSIDOperation,       //读取WIFI定位成功BSSID数量
+    mk_sb_taskReadBluetoothFixMechanismOperation,           //读取蓝牙定位机制选择
+    mk_sb_taskReadBlePositioningTimeoutOperation,   //读取蓝牙定位超时时间
+    mk_sb_taskReadBlePositioningNumberOfMacOperation,   //读取蓝牙定位成功MAC数量
+    mk_sb_taskReadGPSPositioningOperation,          //读取GPS选择
     mk_sb_taskReadLCGpsExtrmeModeStatusOperation,       //读取GPS极限上传模式
     mk_sb_taskReadLCPositioningTimeoutOperation,        //读取GPS定位超时时间(L76C)
     mk_sb_taskReadLCPDOPOperation,                      //读取GPSPDOP配置(L76C)
@@ -111,62 +121,38 @@ typedef NS_ENUM(NSInteger, mk_sb_taskOperationID) {
     mk_sb_taskReadLRAutonomousAidingOperation,          //读取定位方式选择(LR1110)
     mk_sb_taskReadLRLatitudeLongitudeOperation,         //读取辅助定位经纬度(LR1110)
     mk_sb_taskReadLRNotifyOnEphemerisStatusOperation,  //读取星历开始更新事件开关(LR1110)
-    
-    
-    
-    
-    mk_sb_taskReadWifiDataTypeOperation,        //读取WIFI定位数据格式
-    mk_sb_taskReadWifiFixMechanismOperation,    //读取WIFI定位机制
-    mk_sb_taskReadWifiPositioningTimeoutOperation,  //读取WIFI扫描超时时间
-    mk_sb_taskReadWifiNumberOfBSSIDOperation,       //读取WIFI定位成功BSSID数量
-    mk_sb_taskReadBluetoothFixMechanismOperation,           //读取蓝牙定位机制选择
-    mk_sb_taskReadBlePositioningTimeoutOperation,   //读取蓝牙定位超时时间
-    mk_sb_taskReadBlePositioningNumberOfMacOperation,   //读取蓝牙定位成功MAC数量
     mk_sb_taskReadOfflineFixStatusOperation,    //读取离线定位功能开关状态
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    mk_sb_taskReadBXPAccFilterStatusOperation,          //读取BeaconX Pro-ACC设备过滤开关
-    mk_sb_taskReadBXPTHFilterStatusOperation,           //读取BeaconX Pro-T&H设备过滤开关
-    
-    
-    
-    
-    
-    
-    mk_sb_taskReadBXPDeviceInfoFilterStatusOperation,       //读取BXP-DeviceInfo过滤条件开关
-    
-    
-    
 #pragma mark - 设备控制参数配置
-    mk_sb_taskConfigWorkModeOperation,                  //配置工作模式
-    mk_sb_taskConfigHeartbeatIntervalOperation,         //配置设备心跳间隔
-    mk_sb_taskConfigThreeAxisWakeupConditionsOperation,         //配置三轴唤醒条件
-    mk_sb_taskConfigThreeAxisMotionParametersOperation,         //配置运动检测判断
-    
-    
-    
-    
-    
-    
-    
     mk_sb_taskPowerOffOperation,                        //关机
     mk_sb_taskRestartDeviceOperation,                   //配置设备重新入网
     mk_sb_taskFactoryResetOperation,                    //设备恢复出厂设置
     mk_sb_taskConfigDeviceTimeOperation,                //配置时间戳
     mk_sb_taskConfigTimeZoneOperation,                  //配置时区
-    mk_sb_taskConfigIndicatorSettingsOperation,         //配置指示灯开关状态
+    mk_sb_taskConfigWorkModeOperation,                  //配置工作模式
     mk_sb_taskConfigShutdownPayloadStatusOperation,     //配置关机信息上报状态
+    mk_sb_taskConfigOFFByButtonOperation,               //配置按键关机开关状态
     mk_sb_taskConfigLowPowerPayloadStatusOperation,     //配置低电触发心跳开关状态
     mk_sb_taskConfigLowPowerPromptOperation,            //配置低电百分比
+    mk_sb_taskConfigHeartbeatIntervalOperation,         //配置设备心跳间隔
+    mk_sb_taskConfigThreeAxisWakeupConditionsOperation,         //配置三轴唤醒条件
+    mk_sb_taskConfigThreeAxisMotionParametersOperation,         //配置运动检测判断
+    mk_sb_taskConfigBuzzerSoundTypeOperation,           //配置蜂鸣器声效选择
+    mk_sb_taskConfigVibrationIntensityOperation,        //配置马达震动强度
+    mk_sb_taskResetMotorStateOperation,                 //清除马达异常状态
+    mk_sb_taskConfigIndicatorSettingsOperation,         //配置指示灯开关状态
     mk_sb_taskBatteryResetOperation,                    //清除电池电量数据
+    mk_sb_taskConfigAutoPowerOnOperation,               //配置充电自动开机开关
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 #pragma mark - 蓝牙参数配置
     mk_sb_taskConfigNeedPasswordOperation,              //配置是否需要连接密码
@@ -264,26 +250,8 @@ typedef NS_ENUM(NSInteger, mk_sb_taskOperationID) {
     mk_sb_taskConfigBluetoothFixMechanismOperation,             //配置蓝牙定位机制
     mk_sb_taskConfigBlePositioningTimeoutOperation,     //配置蓝牙定位超时时间
     mk_sb_taskConfigBlePositioningNumberOfMacOperation,     //配置蓝牙定位mac数量
+    mk_sb_taskConfigGPSPositioningOperation,            //配置GPS选择
     mk_sb_taskConfigOfflineFixOperation,                //配置离线定位功能开关状态
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 #pragma mark - 密码特征
     mk_sb_connectPasswordOperation,             //连接设备时候发送密码
@@ -329,21 +297,6 @@ typedef NS_ENUM(NSInteger, mk_sb_taskOperationID) {
     mk_sb_taskReadSosAlarmReportIntervalOperation,          //读取SOS报警数据上报间隔
     mk_sb_taskReadSosAlarmNotifyStatusOperation,            //读取SOS报警事件通知
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    mk_sb_taskReadShockThresholdsOperation,                 //读取震动检测阈值
-    mk_sb_taskReadShockDetectionReportIntervalOperation,    //读取震动上法间隔
-    mk_sb_taskReadShockTimeoutOperation,                    //读取震动次数判断间隔
-    mk_sb_taskReadActiveStateCountStatusOperation,          //读取活动记录使能
-    mk_sb_taskReadActiveStateTimeoutOperation,              //读取活动判定间隔
-    
 #pragma mark - 设备LoRa参数配置
     mk_sb_taskConfigRegionOperation,                    //配置LoRaWAN的region
     mk_sb_taskConfigModemOperation,                     //配置LoRaWAN的入网类型
@@ -384,22 +337,6 @@ typedef NS_ENUM(NSInteger, mk_sb_taskOperationID) {
     mk_sb_taskConfigSosAlarmPositioningStrategyOperation,       //配置SOS报警定位策略
     mk_sb_taskConfigSosAlarmReportIntervalOperation,            //配置SOS报警定位数据上报间隔
     mk_sb_taskConfigSosAlarmNotifyEventOperation,               //配置SOS报警事件通知
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    mk_sb_taskConfigShockDetectionStatusOperation,          //配置震动检测使能
-    mk_sb_taskConfigShockDetectionReportIntervalOperation,  //配置震动上发间隔
-    mk_sb_taskConfigShockTimeoutOperation,                  //配置震动次数判断间隔
-    mk_sb_taskConfigIdleStutasResetOperation,                   //闲置状态清除
-    mk_sb_taskConfigActiveStateCountStatusOperation,            //配置活动记录使能
-    mk_sb_taskConfigActiveStateTimeoutOperation,                //配置活动判定间隔
     
 #pragma mark - 存储数据协议
     mk_sb_taskReadNumberOfDaysStoredDataOperation,      //读取多少天本地存储的数据

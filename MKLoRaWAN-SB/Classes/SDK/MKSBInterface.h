@@ -47,6 +47,52 @@ NS_ASSUME_NONNULL_BEGIN
                             failedBlock:(void (^)(NSError *error))failedBlock;
 
 #pragma mark ****************************************System************************************************
+/// Read the time zone of the device.
+/*
+ @{
+ @"timeZone":@(-23)       //UTC-11:30
+ }
+ //-24~28((The time zone is in units of 30 minutes, UTC-12:00~UTC+14:00))
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readTimeZoneWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the mac address of the device.
+/*
+ @{
+    @"macAddress":@"AA:BB:CC:DD:EE:FF"
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readMacAddressWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the Selftest Status of the device.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readSelftestStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the PCBA Status of the device.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readPCBAStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read battery voltage.
+/*
+ @{
+ @"voltage":@"3000",        //Unit:mV
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readBatteryVoltageWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
+
 /// Read the working mode of the device.
 /*
  @{
@@ -63,58 +109,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sb_readWorkModeWithSucBlock:(void (^)(id returnData))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Heartbeat Interval.
-/*
- @{
- @"interval":@"720"     //Unit:S.
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readHeartbeatIntervalWithSucBlock:(void (^)(id returnData))sucBlock
-                                 failedBlock:(void (^)(NSError *error))failedBlock;
-
-
-
-
-
-
-
-
-
-
-
-/// Read the time zone of the device.
-/*
- @{
- @"timeZone":@(-23)       //UTC-11:30
- }
- //-24~28((The time zone is in units of 30 minutes, UTC-12:00~UTC+14:00))
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readTimeZoneWithSucBlock:(void (^)(id returnData))sucBlock
-                        failedBlock:(void (^)(NSError *error))failedBlock;
-
-
-
-/// Read Indicator Settings.
-/*
- @{
-    @"lowPower":@(YES),
-    @"networkCheck":@(NO),
-    @"inFix":@(YES),
-    @"fixSuccessful":@(NO),
-    @"failToFix":@(YES),
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readIndicatorSettingsWithSucBlock:(void (^)(id returnData))sucBlock
-                                 failedBlock:(void (^)(NSError *error))failedBlock;
-
-
-
 /// Read Shutdown Payload Status.
 /*
  @{
@@ -125,6 +119,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param failedBlock Failure callback
 + (void)sb_readShutdownPayloadStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                      failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// OFF by Button.
+/*
+ @{
+    @"isOn":@(YES)
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readOffByButtonWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Whether to trigger a heartbeat when the device is low on battery.
 /*
@@ -140,7 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// When the power of the device is lower than how much, it is judged as a low power state.
 /*
     @{
-    @"prompt":@"0",         //@"0":5%   @"1":10%
+    @"prompt":@"0",         //@"0":10%   @"1":20%  @"2":30% @"3":40% @"4":50% @"5":60%
  }
  */
 /// @param sucBlock Success callback
@@ -148,39 +153,135 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sb_readLowPowerPromptWithSucBlock:(void (^)(id returnData))sucBlock
                               failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Read battery voltage.
+/// Heartbeat Interval.
 /*
  @{
- @"voltage":@"3000",        //Unit:mV
+ @"interval":@"720"     //Unit:S.
  }
  */
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)sb_readBatteryVoltageWithSucBlock:(void (^)(id returnData))sucBlock
-                              failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)sb_readHeartbeatIntervalWithSucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Read the mac address of the device.
+/// Read three-axis sensor wake-up conditions.
 /*
  @{
-    @"macAddress":@"AA:BB:CC:DD:EE:FF"
+     @"threshold":threshold,        //x 16mg
+     @"duration":duration,          //x 10ms
+ };
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readThreeAxisWakeupConditionsWithSucBlock:(void (^)(id returnData))sucBlock
+                                         failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read three-axis data motion detection judgment parameters.
+/*
+ @{
+     @"threshold":threshold,        //x 2mg
+     @"duration":duration,          //x 5ms
+ };
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readThreeAxisMotionParametersWithSucBlock:(void (^)(id returnData))sucBlock
+                                         failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Buzzer sound selection.
+/*
+    @{
+    @"buzzer":@"0",     //"0":No  "1":Alarm  "2":Normal
  }
  */
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)sb_readMacAddressWithSucBlock:(void (^)(id returnData))sucBlock
-                          failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)sb_readBuzzerSoundTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Read the PCBA Status of the device.
+/// Motor Vibration Strength.
+/*
+    @{
+    @"intensity":@"0",      //"0":No   "1":Low  "2":Medium "3":High
+ }
+ */
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)sb_readPCBAStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                          failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)sb_readVibrationIntensityWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Read the Selftest Status of the device.
+/// Motor State.
+/*
+    @{
+    @"state":@"0",      //0:Normal  1:Fault
+ }
+ */
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)sb_readSelftestStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                              failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)sb_readMotorStateWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read Indicator Settings.
+/*
+ @{
+    @"deviceState":@(YES),
+    @"lowPower":@(YES),
+    @"charging":@(YES),
+    @"fullCharge":@(YES),
+    @"bluetoothConnection":@(YES),
+    @"networkCheck":@(NO),
+    @"inFix":@(YES),
+    @"fixSuccessful":@(NO),
+    @"failToFix":@(YES),
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readIndicatorSettingsWithSucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// When the battery run out, the device will be turned on when the device is in charged.
+/*
+    @{
+    @"isOn":@(YES),
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readAutoPowerOnWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the hardware model of the device to determine whether the device has an L76K module.
+/*
+    @{
+    @"type":@"0",       //"0":Traditional GPS module Supported  "1":No
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readHardwareTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /// Information of the battery.
 /*
@@ -1034,6 +1135,94 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark ****************************************定位参数************************************************
+
+/// Read WIFI positioning data format.
+/*
+ @{
+    @"dataType":@"0"        //@"0":DAS   @"1":@"Customer"
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readWifiDataTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// WIFI Fix Mechanism.
+/*
+    @{
+    @"mechanism":@"0",      //@"0":Time Priority  @"1":RSSI Priority
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readWifiFixMechanismWithSucBlock:(void (^)(id returnData))sucBlock
+                                failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the WIFI positioning timeout.The current value multiplied by 2.5 is the actual time (unit: s).
+/*
+ @{
+    @"interval":@"1"
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readWifiPositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
+                                      failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the number of BSSIDs with successful WIFI positioning.
+/*
+ @{
+    @"number":@"3"
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readWifiNumberOfBSSIDWithSucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Bluetooth Fix Mechanism.
+/*
+ @{
+    @"priority":@"0",       //@"0":Time Priority, @"1":Rssi Priority.
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readBluetoothFixMechanismWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Positioning Timeout Of Ble.
+/*
+ @{
+ @"timeout":@"5"            //unit:s
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readBlePositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// The number of MACs for Bluetooth positioning.
+/*
+ @{
+ @"number":@"3"
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readBlePositioningNumberOfMacWithSucBlock:(void (^)(id returnData))sucBlock
+                                         failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// GPS Positioning.
+/*
+    @{
+    @"type":@"0",           //0:Traditional GPS module 1:LoRa Cloud
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readGPSPositioningWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
 /// GPS limit upload mode status.(L76C)
 /*
  @{
@@ -1146,93 +1335,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sb_readLRNotifyOnEphemerisStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                          failedBlock:(void (^)(NSError *error))failedBlock;
 
-
-
-
-
-
-
-
-
-
-
-/// Read WIFI positioning data format.
-/*
- @{
-    @"dataType":@"0"        //@"0":DAS   @"1":@"Customer"
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readWifiDataTypeWithSucBlock:(void (^)(id returnData))sucBlock
-                            failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// WIFI Fix Mechanism.
-/*
-    @{
-    @"mechanism":@"0",      //@"0":Time Priority  @"1":RSSI Priority
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readWifiFixMechanismWithSucBlock:(void (^)(id returnData))sucBlock
-                                failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Read the WIFI positioning timeout.The current value multiplied by 2.5 is the actual time (unit: s).
-/*
- @{
-    @"interval":@"1"
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readWifiPositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
-                                      failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Read the number of BSSIDs with successful WIFI positioning.
-/*
- @{
-    @"number":@"3"
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readWifiNumberOfBSSIDWithSucBlock:(void (^)(id returnData))sucBlock
-                                 failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Bluetooth Fix Mechanism.
-/*
- @{
-    @"priority":@"0",       //@"0":Time Priority, @"1":Rssi Priority.
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readBluetoothFixMechanismWithSucBlock:(void (^)(id returnData))sucBlock
-                                     failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Positioning Timeout Of Ble.
-/*
- @{
- @"timeout":@"5"            //unit:s
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readBlePositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
-                                     failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// The number of MACs for Bluetooth positioning.
-/*
- @{
- @"number":@"3"
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readBlePositioningNumberOfMacWithSucBlock:(void (^)(id returnData))sucBlock
-                                         failedBlock:(void (^)(NSError *error))failedBlock;
-
 /// Whether to enable positioning when the device fails to connect to the Lorawan network.
 /*
     @{
@@ -1243,77 +1345,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param failedBlock Failure callback
 + (void)sb_readOfflineFixStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                 failedBlock:(void (^)(NSError *error))failedBlock;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/// Read the filter status of the BeaconX Pro-ACC device.
-/*
- @{
- @"isOn":@(YES)
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readBXPAccFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                  failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Read the filter status of the BeaconX Pro-T&H device.
-/*
- @{
- @"isOn":@(YES)
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readBXPTHFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                 failedBlock:(void (^)(NSError *error))failedBlock;
-
-
-
-
-
-
-
-
-
-
-
-
-/// Read the filter status of the BXP Device Info.
-/*
- @{
- @"isOn":@(YES)
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readBXPDeviceInfoFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                         failedBlock:(void (^)(NSError *error))failedBlock;
-
-
 
 #pragma mark **************************************** LoRaWAN ************************************************
 /// Read the current network status of LoRaWAN.
@@ -1724,83 +1755,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param failedBlock Failure callback
 + (void)sb_readSosAlarmNotifyStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                     failedBlock:(void (^)(NSError * error))failedBlock;
-
-
-
-
-
-
-
-
-
-
-
-/// Read three-axis sensor wake-up conditions.
-/*
- @{
-     @"threshold":threshold,        //x 16mg
-     @"duration":duration,          //x 10ms
- };
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readThreeAxisWakeupConditionsWithSucBlock:(void (^)(id returnData))sucBlock
-                                         failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Read three-axis data motion detection judgment parameters.
-/*
- @{
-     @"threshold":threshold,        //x 2mg
-     @"duration":duration,          //x 5ms
- };
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readThreeAxisMotionParametersWithSucBlock:(void (^)(id returnData))sucBlock
-                                         failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Read the state of the Shock detection switch.
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readShockDetectionStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                    failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Read the Shock detection threshold.
-/*
- @{
-     @"threshold":threshold,        //x 10mg
- };
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readShockThresholdsWithSucBlock:(void (^)(id returnData))sucBlock
-                               failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Read the report interval of the Shock detection.(Unit:s)
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readShockDetectionReportIntervalWithSucBlock:(void (^)(id returnData))sucBlock
-                                            failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Read Shock Timeout.(Unit:s)
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readShockTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
-                            failedBlock:(void (^)(NSError *error))failedBlock;
-
-
-
-/// Read Active State Count.
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readActiveStateCountStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                      failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Read Active State Timeout.(Unit:s)
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)sb_readActiveStateTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
-                                  failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

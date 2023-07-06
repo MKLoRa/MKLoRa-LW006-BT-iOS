@@ -14,12 +14,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)NSInteger timeZone;
 
-@property (nonatomic, assign)BOOL shutdownPayload;
+/// 0:10% 1:20% 2:30% 3:40%  4:50%  5:60%
+@property (nonatomic, assign)NSInteger prompt;
 
 @property (nonatomic, assign)BOOL lowPowerPayload;
 
-- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+/// 0:No  1:Alarm  2:Normal
+@property (nonatomic, assign)NSInteger buzzer;
 
+/// 0:No   1:Low  2:Medium 3:High
+@property (nonatomic, assign)NSInteger vibration;
+
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

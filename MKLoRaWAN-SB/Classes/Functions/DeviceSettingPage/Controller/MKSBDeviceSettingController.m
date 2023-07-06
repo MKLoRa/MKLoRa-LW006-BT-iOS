@@ -27,9 +27,10 @@
 
 #import "MKSBDeviceSettingModel.h"
 
-//#import "MKSBSynDataController.h"
-//#import "MKSBIndicatorSettingsController.h"
-//#import "MKSBDeviceInfoController.h"
+#import "MKSBSynDataController.h"
+#import "MKSBOnOffSettingsController.h"
+#import "MKSBIndicatorSettingsController.h"
+#import "MKSBDeviceInfoController.h"
 
 @interface MKSBDeviceSettingController ()<UITableViewDelegate,
 UITableViewDataSource,
@@ -52,6 +53,12 @@ mk_textSwitchCellDelegate>
 
 @property (nonatomic, strong)NSMutableArray *section6List;
 
+@property (nonatomic, strong)NSMutableArray *section7List;
+
+@property (nonatomic, strong)NSMutableArray *section8List;
+
+@property (nonatomic, strong)NSMutableArray *section9List;
+
 @property (nonatomic, strong)NSMutableArray *headerList;
 
 @property (nonatomic, strong)MKSBDeviceSettingModel *dataModel;
@@ -65,6 +72,8 @@ mk_textSwitchCellDelegate>
 @property (nonatomic, copy)NSString *confirmAsciiStr;
 
 @property (nonatomic, strong)NSArray *timeZoneList;
+
+@property (nonatomic, strong)NSArray *promptList;
 
 @end
 
@@ -92,11 +101,14 @@ mk_textSwitchCellDelegate>
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 2) {
+        return 90.f;
+    }
     return 44.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 7) {
+    if (section == 3) {
         return 0.f;
     }
     return 10.f;
@@ -109,27 +121,35 @@ mk_textSwitchCellDelegate>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (indexPath.section == 0 && indexPath.row == 0) {
-//        //Local Data Sync
-//        MKSBSynDataController *vc = [[MKSBSynDataController alloc] init];
-//        [self.navigationController pushViewController:vc animated:YES];
-//        return;
-//    }
-//    if (indexPath.section == 1 && indexPath.row == 0) {
-//        //Indicator Settings
-//        MKSBIndicatorSettingsController *vc = [[MKSBIndicatorSettingsController alloc] init];
-//        [self.navigationController pushViewController:vc animated:YES];
-//        return;
-//    }
-//    if (indexPath.section == 4 && indexPath.row == 0) {
-//        //Device Info
-//        MKSBDeviceInfoController *vc = [[MKSBDeviceInfoController alloc] init];
-//        [self.navigationController pushViewController:vc animated:YES];
-//        return;
-//    }
-    if (indexPath.section == 5 && indexPath.row == 0) {
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        //Local Data Sync
+        MKSBSynDataController *vc = [[MKSBSynDataController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    if (indexPath.section == 6 && indexPath.row == 0) {
+        //ON/OFF Settings
+        MKSBOnOffSettingsController *vc = [[MKSBOnOffSettingsController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    
+    if (indexPath.section == 7 && indexPath.row == 0) {
+        //Indicator Settings
+        MKSBIndicatorSettingsController *vc = [[MKSBIndicatorSettingsController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    
+    if (indexPath.section == 8 && indexPath.row == 0) {
         //恢复出厂设置
         [self factoryReset];
+        return;
+    }
+    if (indexPath.section == 9 && indexPath.row == 0) {
+        //Device Info
+        MKSBDeviceInfoController *vc = [[MKSBDeviceInfoController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
         return;
     }
 }
@@ -161,6 +181,15 @@ mk_textSwitchCellDelegate>
     if (section == 6) {
         return self.section6List.count;
     }
+    if (section == 7) {
+        return self.section7List.count;
+    }
+    if (section == 8) {
+        return self.section8List.count;
+    }
+    if (section == 9) {
+        return self.section9List.count;
+    }
     return 0;
 }
 
@@ -171,8 +200,9 @@ mk_textSwitchCellDelegate>
         return cell;
     }
     if (indexPath.section == 1) {
-        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+        MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
         cell.dataModel = self.section1List[indexPath.row];
+        cell.delegate = self;
         return cell;
     }
     if (indexPath.section == 2) {
@@ -188,18 +218,34 @@ mk_textSwitchCellDelegate>
         return cell;
     }
     if (indexPath.section == 4) {
-        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+        MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
         cell.dataModel = self.section4List[indexPath.row];
+        cell.delegate = self;
         return cell;
     }
     if (indexPath.section == 5) {
-        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+        MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
         cell.dataModel = self.section5List[indexPath.row];
+        cell.delegate = self;
         return cell;
     }
-    MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
-    cell.dataModel = self.section6List[indexPath.row];
-    cell.delegate = self;
+    if (indexPath.section == 6) {
+        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+        cell.dataModel = self.section6List[indexPath.row];
+        return cell;
+    }
+    if (indexPath.section == 7) {
+        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+        cell.dataModel = self.section7List[indexPath.row];
+        return cell;
+    }
+    if (indexPath.section == 8) {
+        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+        cell.dataModel = self.section8List[indexPath.row];
+        return cell;
+    }
+    MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+    cell.dataModel = self.section9List[indexPath.row];
     return cell;
 }
 
@@ -216,6 +262,21 @@ mk_textSwitchCellDelegate>
         [self configCurrentTimeZone:dataListIndex];
         return;
     }
+    if (index == 1) {
+        //Low Power Prompt
+        [self configLowPowerPrompt:dataListIndex];
+        return;
+    }
+    if (index == 2) {
+        //Buzzer
+        [self configBuzzerType:dataListIndex];
+        return;
+    }
+    if (index == 3) {
+        //Vibration Intensity
+        [self configVibrationIntensity:dataListIndex];
+        return;
+    }
 }
 
 #pragma mark - mk_textSwitchCellDelegate
@@ -223,19 +284,9 @@ mk_textSwitchCellDelegate>
 /// @param isOn 当前开关状态
 /// @param index 当前cell所在的index
 - (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
-    if (index == 0) {
-        //Shutdown Payload
-        [self configShutdownPayload:isOn];
-        return;
-    }
     if (index == 1) {
         //Low-power Payload
         [self configLowPowerPayload:isOn];
-        return;
-    }
-    if (index == 2) {
-        //Power Off
-        [self powerOff];
         return;
     }
 }
@@ -258,9 +309,25 @@ mk_textSwitchCellDelegate>
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     [MKSBInterface sb_configTimeZone:(index - 24) sucBlock:^{
         [[MKHudManager share] hide];
-        MKTextButtonCellModel *cellModel = self.section2List[0];
+        MKTextButtonCellModel *cellModel = self.section1List[0];
         cellModel.dataListIndex = index;
         self.dataModel.timeZone = index;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
+    }];
+}
+
+- (void)configLowPowerPrompt:(NSInteger)index {
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    [MKSBInterface sb_configLowPowerPrompt:index sucBlock:^{
+        [[MKHudManager share] hide];
+        MKTextButtonCellModel *cellModel = self.section2List[0];
+        cellModel.dataListIndex = index;
+        cellModel.noteMsg = [NSString stringWithFormat:@"*When the battery is less than or equal to %@, the green LED will flash once every 10 seconds.",self.promptList[index]];
+        self.dataModel.prompt = index;
+        [self.tableView mk_reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
@@ -268,17 +335,31 @@ mk_textSwitchCellDelegate>
     }];
 }
 
-- (void)configShutdownPayload:(BOOL)isOn {
+- (void)configBuzzerType:(NSInteger)index {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    [MKSBInterface sb_configShutdownPayloadStatus:isOn sucBlock:^{
+    [MKSBInterface sb_configBuzzerSoundType:index sucBlock:^{
         [[MKHudManager share] hide];
-        MKTextSwitchCellModel *cellModel = self.section3List[0];
-        cellModel.isOn = isOn;
-        self.dataModel.shutdownPayload = isOn;
+        MKTextButtonCellModel *cellModel = self.section4List[0];
+        cellModel.dataListIndex = index;
+        self.dataModel.buzzer = index;
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        [self.tableView mk_reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView mk_reloadSection:4 withRowAnimation:UITableViewRowAnimationNone];
+    }];
+}
+
+- (void)configVibrationIntensity:(NSInteger)index {
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    [MKSBInterface sb_configVibrationIntensity:index sucBlock:^{
+        [[MKHudManager share] hide];
+        MKTextButtonCellModel *cellModel = self.section5List[0];
+        cellModel.dataListIndex = index;
+        self.dataModel.vibration = index;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadSection:5 withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
 
@@ -286,25 +367,32 @@ mk_textSwitchCellDelegate>
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     [MKSBInterface sb_configLowPowerPayloadStatus:isOn sucBlock:^{
         [[MKHudManager share] hide];
-        MKTextSwitchCellModel *cellModel = self.section3List[1];
+        MKTextSwitchCellModel *cellModel = self.section3List[0];
         cellModel.isOn = isOn;
         self.dataModel.lowPowerPayload = isOn;
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        [self.tableView mk_reloadRow:1 inSection:3 withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView mk_reloadRow:0 inSection:3 withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
 
 - (void)updateCellStates {
-    MKTextButtonCellModel *timeZoneModel = self.section2List[0];
+    MKTextButtonCellModel *timeZoneModel = self.section1List[0];
     timeZoneModel.dataListIndex = self.dataModel.timeZone;
     
-    MKTextSwitchCellModel *shutdownModel = self.section3List[0];
-    shutdownModel.isOn = self.dataModel.shutdownPayload;
+    MKTextButtonCellModel *promptModel = self.section2List[0];
+    promptModel.noteMsg = [NSString stringWithFormat:@"*When the battery is less than or equal to %@, the green LED will flash once every 10 seconds.",self.promptList[self.dataModel.prompt]];
+    promptModel.dataListIndex = self.dataModel.prompt;
     
-    MKTextSwitchCellModel *lowPowerPayloadModel = self.section3List[1];
+    MKTextSwitchCellModel *lowPowerPayloadModel = self.section3List[0];
     lowPowerPayloadModel.isOn = self.dataModel.lowPowerPayload;
+    
+    MKTextButtonCellModel *buzzerModel = self.section4List[0];
+    buzzerModel.dataListIndex = self.dataModel.buzzer;
+    
+    MKTextButtonCellModel *intensityModel = self.section5List[0];
+    intensityModel.dataListIndex = self.dataModel.vibration;
     
     [self.tableView reloadData];
 }
@@ -340,38 +428,6 @@ mk_textSwitchCellDelegate>
     }];
 }
 
-#pragma mark - 开关机
-- (void)powerOff{
-    @weakify(self);
-    MKAlertViewAction *cancelAction = [[MKAlertViewAction alloc] initWithTitle:@"Cancel" handler:^{
-        @strongify(self);
-        [self.tableView mk_reloadSection:6 withRowAnimation:UITableViewRowAnimationNone];
-    }];
-    
-    MKAlertViewAction *confirmAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{
-        @strongify(self);
-        [self commandPowerOff];
-    }];
-    NSString *msg = @"Are you sure to turn off the device? Please make sure the device has a button to turn on!";
-    MKAlertView *alertView = [[MKAlertView alloc] init];
-    [alertView addAction:cancelAction];
-    [alertView addAction:confirmAction];
-    [alertView showAlertWithTitle:@"Warning!" message:msg notificationName:@"mk_sb_needDismissAlert"];
-}
-
-- (void)commandPowerOff{
-    [[MKHudManager share] showHUDWithTitle:@"Setting..."
-                                     inView:self.view
-                              isPenetration:NO];
-    [MKSBInterface sb_powerOffWithSucBlock:^{
-        [[MKHudManager share] hide];
-    } failedBlock:^(NSError * _Nonnull error) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        [self.tableView mk_reloadSection:7 withRowAnimation:UITableViewRowAnimationNone];
-    }];
-}
-
 #pragma mark - loadSections
 - (void)loadSectionDatas {
     [self loadSection0Datas];
@@ -381,8 +437,11 @@ mk_textSwitchCellDelegate>
     [self loadSection4Datas];
     [self loadSection5Datas];
     [self loadSection6Datas];
+    [self loadSection7Datas];
+    [self loadSection8Datas];
+    [self loadSection9Datas];
     
-    for (NSInteger i = 0; i < 7; i ++) {
+    for (NSInteger i = 0; i < 10; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
     }
@@ -398,51 +457,71 @@ mk_textSwitchCellDelegate>
 }
 
 - (void)loadSection1Datas {
-    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
-    cellModel.showRightIcon = YES;
-    cellModel.leftMsg = @"Indicator Settings";
+    MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
+    cellModel.index = 0;
+    cellModel.msg = @"Current Time Zone";
+    cellModel.dataList = [NSArray arrayWithArray:self.timeZoneList];
     [self.section1List addObject:cellModel];
 }
 
 - (void)loadSection2Datas {
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
-    cellModel.index = 0;
-    cellModel.msg = @"Current Time Zone";
-    cellModel.dataList = [NSArray arrayWithArray:self.timeZoneList];
+    cellModel.index = 1;
+    cellModel.msg = @"Low Power Prompt";
+    cellModel.dataList = [NSArray arrayWithArray:self.promptList];
+//    cellModel.noteMsg = @"*When the battery is less than or equal to 10%, the green LED will flash once every 10 seconds.";
     [self.section2List addObject:cellModel];
 }
 
 - (void)loadSection3Datas {
     MKTextSwitchCellModel *cellModel1 = [[MKTextSwitchCellModel alloc] init];
     cellModel1.index = 0;
-    cellModel1.msg = @"Shutdown Payload";
+    cellModel1.msg = @"Low-power Payload";
     [self.section3List addObject:cellModel1];
-    
-    MKTextSwitchCellModel *cellModel2 = [[MKTextSwitchCellModel alloc] init];
-    cellModel2.index = 1;
-    cellModel2.msg = @"Low-power Payload";
-    [self.section3List addObject:cellModel2];
 }
 
 - (void)loadSection4Datas {
-    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
-    cellModel.showRightIcon = YES;
-    cellModel.leftMsg = @"Device Information";
+    MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
+    cellModel.index = 2;
+    cellModel.msg = @"Buzzer";
+    cellModel.dataList = @[@"No",@"Alarm",@"Normal"];
     [self.section4List addObject:cellModel];
 }
 
 - (void)loadSection5Datas {
-    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
-    cellModel.showRightIcon = YES;
-    cellModel.leftMsg = @"Factory Reset";
+    MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
+    cellModel.index = 3;
+    cellModel.msg = @"Vibration Intensity";
+    cellModel.dataList = @[@"No",@"Low",@"Medium",@"High"];
     [self.section5List addObject:cellModel];
 }
 
 - (void)loadSection6Datas {
-    MKTextSwitchCellModel *cellModel = [[MKTextSwitchCellModel alloc] init];
-    cellModel.index = 2;
-    cellModel.msg = @"Power Off";
+    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
+    cellModel.showRightIcon = YES;
+    cellModel.leftMsg = @"ON/OFF Settings";
     [self.section6List addObject:cellModel];
+}
+
+- (void)loadSection7Datas {
+    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
+    cellModel.showRightIcon = YES;
+    cellModel.leftMsg = @"Indicator Settings";
+    [self.section7List addObject:cellModel];
+}
+
+- (void)loadSection8Datas {
+    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
+    cellModel.showRightIcon = YES;
+    cellModel.leftMsg = @"Factory Reset";
+    [self.section8List addObject:cellModel];
+}
+
+- (void)loadSection9Datas {
+    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
+    cellModel.showRightIcon = YES;
+    cellModel.leftMsg = @"Device Information";
+    [self.section9List addObject:cellModel];
 }
 
 #pragma mark - UI
@@ -517,6 +596,27 @@ mk_textSwitchCellDelegate>
     return _section6List;
 }
 
+- (NSMutableArray *)section7List {
+    if (!_section7List) {
+        _section7List = [NSMutableArray array];
+    }
+    return _section7List;
+}
+
+- (NSMutableArray *)section8List {
+    if (!_section8List) {
+        _section8List = [NSMutableArray array];
+    }
+    return _section8List;
+}
+
+- (NSMutableArray *)section9List {
+    if (!_section9List) {
+        _section9List = [NSMutableArray array];
+    }
+    return _section9List;
+}
+
 - (NSMutableArray *)headerList {
     if (!_headerList) {
         _headerList = [NSMutableArray array];
@@ -544,6 +644,13 @@ mk_textSwitchCellDelegate>
                           @"UTC+12:00",@"UTC+12:30",@"UTC+13:00",@"UTC+13:30",@"UTC+14:00"];
     }
     return _timeZoneList;
+}
+
+- (NSArray *)promptList {
+    if (!_promptList) {
+        _promptList = @[@"10%",@"20%",@"30%",@"40%",@"50%",@"60%"];
+    }
+    return _promptList;
 }
 
 @end

@@ -145,6 +145,37 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
     
     if ([cmd isEqualToString:@"01"]) {
         
+    }else if ([cmd isEqualToString:@"14"]) {
+        //读取时区
+        resultDic = @{
+            @"timeZone":[MKBLEBaseSDKAdopter signedHexTurnString:content],
+        };
+        operationID = mk_sb_taskReadTimeZoneOperation;
+    }else if ([cmd isEqualToString:@"15"]) {
+        //读取MAC地址
+        NSString *macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[content substringWithRange:NSMakeRange(0, 2)],[content substringWithRange:NSMakeRange(2, 2)],[content substringWithRange:NSMakeRange(4, 2)],[content substringWithRange:NSMakeRange(6, 2)],[content substringWithRange:NSMakeRange(8, 2)],[content substringWithRange:NSMakeRange(10, 2)]];
+        resultDic = @{@"macAddress":[macAddress uppercaseString]};
+        operationID = mk_sb_taskReadMacAddressOperation;
+    }else if ([cmd isEqualToString:@"16"]) {
+        //读取自检故障原因
+//        NSString *status = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)];
+        resultDic = @{
+            @"status":content,
+        };
+        operationID = mk_sb_taskReadSelftestStatusOperation;
+    }else if ([cmd isEqualToString:@"17"]) {
+        //读取产测状态
+        NSString *status = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)];
+        resultDic = @{
+            @"status":status,
+        };
+        operationID = mk_sb_taskReadPCBAStatusOperation;
+    }else if ([cmd isEqualToString:@"19"]) {
+        //读取电池电压
+        resultDic = @{
+            @"voltage":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_sb_taskReadBatteryVoltageOperation;
     }else if ([cmd isEqualToString:@"1b"]) {
         //读取工作模式
         NSInteger mode = [MKBLEBaseSDKAdopter getDecimalWithHex:content range:NSMakeRange(0, content.length)];
@@ -152,6 +183,33 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
             @"mode":[NSString stringWithFormat:@"%ld",mode],
         };
         operationID = mk_sb_taskReadWorkModeOperation;
+    }else if ([cmd isEqualToString:@"1c"]) {
+        //读取关机信息上报
+        BOOL isOn = [content isEqualToString:@"01"];
+        resultDic = @{
+            @"isOn":@(isOn),
+        };
+        operationID = mk_sb_taskReadShutdownPayloadStatusOperation;
+    }else if ([cmd isEqualToString:@"1d"]) {
+        //读取按键关机开关状态
+        BOOL isOn = [content isEqualToString:@"01"];
+        resultDic = @{
+            @"isOn":@(isOn),
+        };
+        operationID = mk_sb_taskReadOffByButtonOperation;
+    }else if ([cmd isEqualToString:@"1e"]) {
+        //读取低电触发心跳开关状态
+        BOOL isOn = [content isEqualToString:@"01"];
+        resultDic = @{
+            @"isOn":@(isOn),
+        };
+        operationID = mk_sb_taskReadLowPowerPayloadStatusOperation;
+    }else if ([cmd isEqualToString:@"1f"]) {
+        //读取低电百分比
+        resultDic = @{
+            @"prompt":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_sb_taskReadLowPowerPromptOperation;
     }else if ([cmd isEqualToString:@"20"]) {
         //读取设备心跳间隔
         resultDic = @{
@@ -176,6 +234,77 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
             @"duration":duration,
         };
         operationID = mk_sb_taskReadThreeAxisMotionParametersOperation;
+    }else if ([cmd isEqualToString:@"23"]) {
+        //读取蜂鸣器声效选择
+        resultDic = @{
+            @"buzzer":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_sb_taskReadBuzzerSoundTypeOperation;
+    }else if ([cmd isEqualToString:@"24"]) {
+        //读取马达震动强度
+        NSInteger value = [MKBLEBaseSDKAdopter getDecimalWithHex:content range:NSMakeRange(0, content.length)];
+        NSString *intensity = @"0";
+        if (value >= 10 && value < 50) {
+            intensity = @"1";
+        }else if (value >= 50 && value < 80) {
+            intensity = @"2";
+        }else if (value >= 80) {
+            intensity = @"3";
+        }
+        resultDic = @{
+            @"intensity":intensity,
+        };
+        operationID = mk_sb_taskReadVibrationIntensityOperation;
+    }else if ([cmd isEqualToString:@"25"]) {
+        //读取马达异常状态
+        resultDic = @{
+            @"state":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_sb_taskReadMotorStateOperation;
+    }else if ([cmd isEqualToString:@"27"]) {
+        //读取指示灯功能
+        NSDictionary *indicatorSettings = [MKSBSDKDataAdopter fetchIndicatorSettings:content];
+        resultDic = @{
+            @"indicatorSettings":indicatorSettings,
+        };
+        operationID = mk_sb_taskReadIndicatorSettingsOperation;
+    }else if ([cmd isEqualToString:@"28"]) {
+        //读取电池信息
+        NSString *workTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 8)];
+        NSString *advCount = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 8)];
+        NSString *flashOperationCount = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(16, 8)];
+        NSString *axisWakeupTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(24, 8)];
+        NSString *blePostionTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(32, 8)];
+        NSString *wifiPostionTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(40, 8)];
+        NSString *gpsPostionTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(48, 8)];
+        NSString *loraSendCount = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(56, 8)];
+        NSString *loraPowerConsumption = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(64, 8)];
+        
+        resultDic = @{
+            @"workTimes":workTimes,
+            @"advCount":advCount,
+            @"flashOperationCount":flashOperationCount,
+            @"axisWakeupTimes":axisWakeupTimes,
+            @"blePostionTimes":blePostionTimes,
+            @"wifiPostionTimes":wifiPostionTimes,
+            @"gpsPostionTimes":gpsPostionTimes,
+            @"loraSendCount":loraSendCount,
+            @"loraPowerConsumption":loraPowerConsumption,
+        };
+        operationID = mk_sb_taskReadBatteryInformationOperation;
+    }else if ([cmd isEqualToString:@"2b"]) {
+        //充电自动开机开关
+        BOOL isOn = ([content isEqualToString:@"01"]);
+        resultDic = @{
+            @"isOn":@(isOn)
+        };
+        operationID = mk_sb_taskReadAutoPowerOnOperation;
+    }else if ([cmd isEqualToString:@"2c"]) {
+        //读取硬件版本
+        resultDic = @{
+            @"type":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_sb_taskReadHardwareTypeOperation;
     }else if ([cmd isEqualToString:@"30"]) {
         //读取密码开关
         BOOL need = ([content isEqualToString:@"01"]);
@@ -216,90 +345,6 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
             @"interval":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
         };
         operationID = mk_sb_taskReadAdvIntervalOperation;
-    }else if ([cmd isEqualToString:@"22"]) {
-        //读取时区
-        resultDic = @{
-            @"timeZone":[MKBLEBaseSDKAdopter signedHexTurnString:content],
-        };
-        operationID = mk_sb_taskReadTimeZoneOperation;
-    }else if ([cmd isEqualToString:@"16"]) {
-        //读取指示灯功能
-        NSDictionary *indicatorSettings = [MKSBSDKDataAdopter fetchIndicatorSettings:content];
-        resultDic = @{
-            @"indicatorSettings":indicatorSettings,
-        };
-        operationID = mk_sb_taskReadIndicatorSettingsOperation;
-    }else if ([cmd isEqualToString:@"19"]) {
-        //读取关机信息上报
-        BOOL isOn = [content isEqualToString:@"01"];
-        resultDic = @{
-            @"isOn":@(isOn),
-        };
-        operationID = mk_sb_taskReadShutdownPayloadStatusOperation;
-    }else if ([cmd isEqualToString:@"1b"]) {
-        //读取低电触发心跳开关状态
-        BOOL isOn = [content isEqualToString:@"01"];
-        resultDic = @{
-            @"isOn":@(isOn),
-        };
-        operationID = mk_sb_taskReadLowPowerPayloadStatusOperation;
-    }else if ([cmd isEqualToString:@"1c"]) {
-        //读取低电百分比
-        resultDic = @{
-            @"prompt":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
-        };
-        operationID = mk_sb_taskReadLowPowerPromptOperation;
-    }else if ([cmd isEqualToString:@"20"]) {
-        //读取电池电压
-        resultDic = @{
-            @"voltage":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
-        };
-        operationID = mk_sb_taskReadBatteryVoltageOperation;
-    }else if ([cmd isEqualToString:@"21"]) {
-        //读取MAC地址
-        NSString *macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[content substringWithRange:NSMakeRange(0, 2)],[content substringWithRange:NSMakeRange(2, 2)],[content substringWithRange:NSMakeRange(4, 2)],[content substringWithRange:NSMakeRange(6, 2)],[content substringWithRange:NSMakeRange(8, 2)],[content substringWithRange:NSMakeRange(10, 2)]];
-        resultDic = @{@"macAddress":[macAddress uppercaseString]};
-        operationID = mk_sb_taskReadMacAddressOperation;
-    }else if ([cmd isEqualToString:@"22"]) {
-        //读取产测状态
-        NSString *status = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)];
-        resultDic = @{
-            @"status":status,
-        };
-        operationID = mk_sb_taskReadPCBAStatusOperation;
-    }else if ([cmd isEqualToString:@"23"]) {
-        //读取自检故障原因
-//        NSString *status = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)];
-        resultDic = @{
-            @"status":content,
-        };
-        operationID = mk_sb_taskReadSelftestStatusOperation;
-    }else if ([cmd isEqualToString:@"25"]) {
-        //读取电池信息
-        NSString *workTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 8)];
-        NSString *advCount = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 8)];
-        NSString *flashOperationCount = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(16, 8)];
-        NSString *axisWakeupTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(24, 8)];
-        NSString *blePostionTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(32, 8)];
-        NSString *wifiPostionTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(40, 8)];
-        NSString *gpsPostionTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(48, 8)];
-        NSString *loraSendCount = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(56, 8)];
-        NSString *loraPowerConsumption = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(64, 8)];
-        NSString *batteryPower = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(72, 8)];
-        
-        resultDic = @{
-            @"workTimes":workTimes,
-            @"advCount":advCount,
-            @"flashOperationCount":flashOperationCount,
-            @"axisWakeupTimes":axisWakeupTimes,
-            @"blePostionTimes":blePostionTimes,
-            @"wifiPostionTimes":wifiPostionTimes,
-            @"gpsPostionTimes":gpsPostionTimes,
-            @"loraSendCount":loraSendCount,
-            @"loraPowerConsumption":loraPowerConsumption,
-            @"batteryPower":batteryPower
-        };
-        operationID = mk_sb_taskReadBatteryInformationOperation;
     }else if ([cmd isEqualToString:@"3f"]) {
         //读取待机模式定位策略
         NSString *strategy = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)];
@@ -783,6 +828,12 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
             @"number":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
         };
         operationID = mk_sb_taskReadBlePositioningNumberOfMacOperation;
+    }else if ([cmd isEqualToString:@"84"]) {
+        //读取GPS选择
+        resultDic = @{
+            @"type":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_sb_taskReadGPSPositioningOperation;
     }else if ([cmd isEqualToString:@"8f"]) {
         //读取离线定位功能开关状态
         BOOL isOn = [content isEqualToString:@"01"];
@@ -790,20 +841,6 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
             @"isOn":@(isOn),
         };
         operationID = mk_sb_taskReadOfflineFixStatusOperation;
-    }else if ([cmd isEqualToString:@"72"]) {
-        //读取BeaconX Pro-ACC设备过滤开关
-        BOOL isOn = ([content isEqualToString:@"01"]);
-        resultDic = @{
-            @"isOn":@(isOn)
-        };
-        operationID = mk_sb_taskReadBXPAccFilterStatusOperation;
-    }else if ([cmd isEqualToString:@"73"]) {
-        //读取BeaconX Pro-T&H设备过滤开关
-        BOOL isOn = ([content isEqualToString:@"01"]);
-        resultDic = @{
-            @"isOn":@(isOn)
-        };
-        operationID = mk_sb_taskReadBXPTHFilterStatusOperation;
     }else if ([cmd isEqualToString:@"85"]) {
         //读取GPS极限上传模式
         BOOL isOn = ([content isEqualToString:@"01"]);
@@ -873,13 +910,6 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
             @"end":@(end)
         };
         operationID = mk_sb_taskReadLRNotifyOnEphemerisStatusOperation;
-    }else if ([cmd isEqualToString:@"82"]) {
-        //读取BXP-DeviceInfo过滤条件开关
-        BOOL isOn = ([content isEqualToString:@"01"]);
-        resultDic = @{
-            @"isOn":@(isOn)
-        };
-        operationID = mk_sb_taskReadBXPDeviceInfoFilterStatusOperation;
     }else if ([cmd isEqualToString:@"90"]) {
         //读取LoRaWAN网络状态
         resultDic = @{
@@ -1136,38 +1166,6 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
             @"end":@(end)
         };
         operationID = mk_sb_taskReadSosAlarmNotifyStatusOperation;
-    }else if ([cmd isEqualToString:@"b4"]) {
-        //读取震动检测阈值
-        NSString *threshold = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)];
-        resultDic = @{
-            @"threshold":threshold,
-        };
-        operationID = mk_sb_taskReadShockThresholdsOperation;
-    }else if ([cmd isEqualToString:@"b5"]) {
-        //读取震动上发间隔
-        resultDic = @{
-            @"interval":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
-        };
-        operationID = mk_sb_taskReadShockDetectionReportIntervalOperation;
-    }else if ([cmd isEqualToString:@"b6"]) {
-        //读取震动次数判断间隔
-        resultDic = @{
-            @"interval":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
-        };
-        operationID = mk_sb_taskReadShockTimeoutOperation;
-    }else if ([cmd isEqualToString:@"ba"]) {
-        //读取活动记录使能
-        BOOL isOn = ([content isEqualToString:@"01"]);
-        resultDic = @{
-            @"isOn":@(isOn)
-        };
-        operationID = mk_sb_taskReadActiveStateCountStatusOperation;
-    }else if ([cmd isEqualToString:@"bb"]) {
-        //读取活动判定间隔
-        resultDic = @{
-            @"interval":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
-        };
-        operationID = mk_sb_taskReadActiveStateTimeoutOperation;
     }
     
     return [self dataParserGetDataSuccess:resultDic operationID:operationID];
@@ -1179,9 +1177,36 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
     
     if ([cmd isEqualToString:@"01"]) {
         //
+    }else if ([cmd isEqualToString:@"10"]) {
+        //关机
+        operationID = mk_sb_taskPowerOffOperation;
+    }else if ([cmd isEqualToString:@"11"]) {
+        //配置LoRaWAN 入网
+        operationID = mk_sb_taskRestartDeviceOperation;
+    }else if ([cmd isEqualToString:@"12"]) {
+        //恢复出厂设置
+        operationID = mk_sb_taskFactoryResetOperation;
+    }else if ([cmd isEqualToString:@"13"]) {
+        //配置时间戳
+        operationID = mk_sb_taskConfigDeviceTimeOperation;
+    }else if ([cmd isEqualToString:@"14"]) {
+        //配置时区
+        operationID = mk_sb_taskConfigTimeZoneOperation;
     }else if ([cmd isEqualToString:@"1b"]) {
         //配置工作模式
         operationID = mk_sb_taskConfigWorkModeOperation;
+    }else if ([cmd isEqualToString:@"1c"]) {
+        //配置关机信息上报状态
+        operationID = mk_sb_taskConfigShutdownPayloadStatusOperation;
+    }else if ([cmd isEqualToString:@"1d"]) {
+        //配置按键关机开关状态
+        operationID = mk_sb_taskConfigOFFByButtonOperation;
+    }else if ([cmd isEqualToString:@"1e"]) {
+        //配置低电触发心跳开关状态
+        operationID = mk_sb_taskConfigLowPowerPayloadStatusOperation;
+    }else if ([cmd isEqualToString:@"1f"]) {
+        //配置低电百分比
+        operationID = mk_sb_taskConfigLowPowerPromptOperation;
     }else if ([cmd isEqualToString:@"20"]) {
         //配置设备心跳间隔
         operationID = mk_sb_taskConfigHeartbeatIntervalOperation;
@@ -1191,6 +1216,24 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
     }else if ([cmd isEqualToString:@"22"]) {
         //配置运动检测判断
         operationID = mk_sb_taskConfigThreeAxisMotionParametersOperation;
+    }else if ([cmd isEqualToString:@"23"]) {
+        //配置蜂鸣器声效选择
+        operationID = mk_sb_taskConfigBuzzerSoundTypeOperation;
+    }else if ([cmd isEqualToString:@"24"]) {
+        //配置马达震动强度
+        operationID = mk_sb_taskConfigVibrationIntensityOperation;
+    }else if ([cmd isEqualToString:@"26"]) {
+        //清除马达异常状态
+        operationID = mk_sb_taskResetMotorStateOperation;
+    }else if ([cmd isEqualToString:@"27"]) {
+        //配置指示灯开关状态
+        operationID = mk_sb_taskConfigIndicatorSettingsOperation;
+    }else if ([cmd isEqualToString:@"29"]) {
+        //清除电池电量数据
+        operationID = mk_sb_taskBatteryResetOperation;
+    }else if ([cmd isEqualToString:@"2b"]) {
+        //配置充电自动开机开关
+        operationID = mk_sb_taskConfigAutoPowerOnOperation;
     }else if ([cmd isEqualToString:@"30"]) {
         //配置是否需要连接密码
         operationID = mk_sb_taskConfigNeedPasswordOperation;
@@ -1209,36 +1252,6 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
     }else if ([cmd isEqualToString:@"35"]) {
         //配置蓝牙广播间隔
         operationID = mk_sb_taskConfigAdvIntervalOperation;
-    }else if ([cmd isEqualToString:@"10"]) {
-        //关机
-        operationID = mk_sb_taskPowerOffOperation;
-    }else if ([cmd isEqualToString:@"11"]) {
-        //配置LoRaWAN 入网
-        operationID = mk_sb_taskRestartDeviceOperation;
-    }else if ([cmd isEqualToString:@"12"]) {
-        //恢复出厂设置
-        operationID = mk_sb_taskFactoryResetOperation;
-    }else if ([cmd isEqualToString:@"13"]) {
-        //配置时间戳
-        operationID = mk_sb_taskConfigDeviceTimeOperation;
-    }else if ([cmd isEqualToString:@"14"]) {
-        //配置时区
-        operationID = mk_sb_taskConfigTimeZoneOperation;
-    }else if ([cmd isEqualToString:@"16"]) {
-        //配置指示灯开关状态
-        operationID = mk_sb_taskConfigIndicatorSettingsOperation;
-    }else if ([cmd isEqualToString:@"19"]) {
-        //配置关机信息上报状态
-        operationID = mk_sb_taskConfigShutdownPayloadStatusOperation;
-    }else if ([cmd isEqualToString:@"1b"]) {
-        //配置低电触发心跳开关状态
-        operationID = mk_sb_taskConfigLowPowerPayloadStatusOperation;
-    }else if ([cmd isEqualToString:@"1c"]) {
-        //配置低电百分比
-        operationID = mk_sb_taskConfigLowPowerPromptOperation;
-    }else if ([cmd isEqualToString:@"26"]) {
-        //清除电池电量数据
-        operationID = mk_sb_taskBatteryResetOperation;
     }else if ([cmd isEqualToString:@"3f"]) {
         //配置待机模式定位策略
         operationID = mk_sb_taskConfigStandbyModePositioningStrategyOperation;
@@ -1434,6 +1447,9 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
     }else if ([cmd isEqualToString:@"83"]) {
         //配置蓝牙定位mac数量
         operationID = mk_sb_taskConfigBlePositioningNumberOfMacOperation;
+    }else if ([cmd isEqualToString:@"84"]) {
+        //配置GPS选择
+        operationID = mk_sb_taskConfigGPSPositioningOperation;
     }else if ([cmd isEqualToString:@"8f"]) {
         //配置离线定位功能开关
         operationID = mk_sb_taskConfigOfflineFixOperation;
@@ -1575,24 +1591,6 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
     }else if ([cmd isEqualToString:@"bd"]) {
         //配置SOS报警事件通知
         operationID = mk_sb_taskConfigSosAlarmNotifyEventOperation;
-    }else if ([cmd isEqualToString:@"b3"]) {
-        //配置震动检测使能
-        operationID = mk_sb_taskConfigShockDetectionStatusOperation;
-    }else if ([cmd isEqualToString:@"b5"]) {
-        //配置震动上发间隔
-        operationID = mk_sb_taskConfigShockDetectionReportIntervalOperation;
-    }else if ([cmd isEqualToString:@"b6"]) {
-        //配置震动次数判断间隔
-        operationID = mk_sb_taskConfigShockTimeoutOperation;
-    }else if ([cmd isEqualToString:@"b9"]) {
-        //闲置状态清除
-        operationID = mk_sb_taskConfigIdleStutasResetOperation;
-    }else if ([cmd isEqualToString:@"ba"]) {
-        //配置活动记录使能
-        operationID = mk_sb_taskConfigActiveStateCountStatusOperation;
-    }else if ([cmd isEqualToString:@"bb"]) {
-        //配置活动判定间隔
-        operationID = mk_sb_taskConfigActiveStateTimeoutOperation;
     }else if ([cmd isEqualToString:@"c0"]) {
         //读取多少天本地存储的数据
         operationID = mk_sb_taskReadNumberOfDaysStoredDataOperation;

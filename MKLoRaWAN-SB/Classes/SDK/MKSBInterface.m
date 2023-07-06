@@ -66,10 +66,82 @@
 
 #pragma mark ****************************************System************************************************
 
++ (void)sb_readTimeZoneWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadTimeZoneOperation
+                     cmdFlag:@"14"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readMacAddressWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadMacAddressOperation
+                     cmdFlag:@"15"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readSelftestStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadSelftestStatusOperation
+                     cmdFlag:@"16"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readPCBAStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadPCBAStatusOperation
+                     cmdFlag:@"17"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readBatteryVoltageWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadBatteryVoltageOperation
+                     cmdFlag:@"19"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
 + (void)sb_readWorkModeWithSucBlock:(void (^)(id returnData))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock {
     [self readDataWithTaskID:mk_sb_taskReadWorkModeOperation
                      cmdFlag:@"1b"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readShutdownPayloadStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadShutdownPayloadStatusOperation
+                     cmdFlag:@"1c"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readOffByButtonWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadOffByButtonOperation
+                     cmdFlag:@"1d"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readLowPowerPayloadStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadLowPowerPayloadStatusOperation
+                     cmdFlag:@"1e"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readLowPowerPromptWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadLowPowerPromptOperation
+                     cmdFlag:@"1f"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
@@ -98,83 +170,34 @@
                  failedBlock:failedBlock];
 }
 
-
-
-
-
-
-
-
-+ (void)sb_readTimeZoneWithSucBlock:(void (^)(id returnData))sucBlock
-                        failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadTimeZoneOperation
-                     cmdFlag:@"14"
++ (void)sb_readBuzzerSoundTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadBuzzerSoundTypeOperation
+                     cmdFlag:@"23"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
 
++ (void)sb_readVibrationIntensityWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadVibrationIntensityOperation
+                     cmdFlag:@"24"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
 
++ (void)sb_readMotorStateWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadMotorStateOperation
+                     cmdFlag:@"25"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
 
 + (void)sb_readIndicatorSettingsWithSucBlock:(void (^)(id returnData))sucBlock
                                  failedBlock:(void (^)(NSError *error))failedBlock {
     [self readDataWithTaskID:mk_sb_taskReadIndicatorSettingsOperation
-                     cmdFlag:@"16"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readShutdownPayloadStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                     failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadShutdownPayloadStatusOperation
-                     cmdFlag:@"19"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readLowPowerPayloadStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                     failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadLowPowerPayloadStatusOperation
-                     cmdFlag:@"1b"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readLowPowerPromptWithSucBlock:(void (^)(id returnData))sucBlock
-                              failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadLowPowerPromptOperation
-                     cmdFlag:@"1c"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readBatteryVoltageWithSucBlock:(void (^)(id returnData))sucBlock
-                              failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadBatteryVoltageOperation
-                     cmdFlag:@"20"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readMacAddressWithSucBlock:(void (^)(id returnData))sucBlock
-                          failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadMacAddressOperation
-                     cmdFlag:@"21"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readPCBAStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                          failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadPCBAStatusOperation
-                     cmdFlag:@"22"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readSelftestStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                              failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadSelftestStatusOperation
-                     cmdFlag:@"23"
+                     cmdFlag:@"27"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
@@ -182,7 +205,23 @@
 + (void)sb_readBatteryInformationWithSucBlock:(void (^)(id returnData))sucBlock
                                   failedBlock:(void (^)(NSError *error))failedBlock {
     [self readDataWithTaskID:mk_sb_taskReadBatteryInformationOperation
-                     cmdFlag:@"25"
+                     cmdFlag:@"28"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readAutoPowerOnWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadAutoPowerOnOperation
+                     cmdFlag:@"2b"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readHardwareTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadHardwareTypeOperation
+                     cmdFlag:@"2c"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
@@ -714,6 +753,70 @@
 
 
 #pragma mark ****************************************定位参数************************************************
+
++ (void)sb_readWifiDataTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadWifiDataTypeOperation
+                     cmdFlag:@"7d"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readWifiFixMechanismWithSucBlock:(void (^)(id returnData))sucBlock
+                                failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadWifiFixMechanismOperation
+                     cmdFlag:@"7e"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readWifiPositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
+                                      failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadWifiPositioningTimeoutOperation
+                     cmdFlag:@"7f"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readWifiNumberOfBSSIDWithSucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadWifiNumberOfBSSIDOperation
+                     cmdFlag:@"80"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readBluetoothFixMechanismWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadBluetoothFixMechanismOperation
+                     cmdFlag:@"81"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readBlePositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadBlePositioningTimeoutOperation
+                     cmdFlag:@"82"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readBlePositioningNumberOfMacWithSucBlock:(void (^)(id returnData))sucBlock
+                                         failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadBlePositioningNumberOfMacOperation
+                     cmdFlag:@"83"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readGPSPositioningWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadGPSPositioningOperation
+                     cmdFlag:@"84"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
 + (void)sb_readLCGpsExtrmeModeStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                      failedBlock:(void (^)(NSError *error))failedBlock {
     [self readDataWithTaskID:mk_sb_taskReadLCGpsExtrmeModeStatusOperation
@@ -794,71 +897,6 @@
                  failedBlock:failedBlock];
 }
 
-
-
-
-
-
-
-
-
-
-+ (void)sb_readWifiDataTypeWithSucBlock:(void (^)(id returnData))sucBlock
-                            failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadWifiDataTypeOperation
-                     cmdFlag:@"7d"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readWifiFixMechanismWithSucBlock:(void (^)(id returnData))sucBlock
-                                failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadWifiFixMechanismOperation
-                     cmdFlag:@"7e"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readWifiPositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
-                                      failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadWifiPositioningTimeoutOperation
-                     cmdFlag:@"7f"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readWifiNumberOfBSSIDWithSucBlock:(void (^)(id returnData))sucBlock
-                                 failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadWifiNumberOfBSSIDOperation
-                     cmdFlag:@"80"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readBluetoothFixMechanismWithSucBlock:(void (^)(id returnData))sucBlock
-                                     failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadBluetoothFixMechanismOperation
-                     cmdFlag:@"81"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readBlePositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
-                                     failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadBlePositioningTimeoutOperation
-                     cmdFlag:@"82"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readBlePositioningNumberOfMacWithSucBlock:(void (^)(id returnData))sucBlock
-                                         failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadBlePositioningNumberOfMacOperation
-                     cmdFlag:@"83"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
 + (void)sb_readOfflineFixStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                 failedBlock:(void (^)(NSError *error))failedBlock {
     [self readDataWithTaskID:mk_sb_taskReadOfflineFixStatusOperation
@@ -866,61 +904,6 @@
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-+ (void)sb_readBXPAccFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                  failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadBXPAccFilterStatusOperation
-                     cmdFlag:@"72"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readBXPTHFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                 failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadBXPTHFilterStatusOperation
-                     cmdFlag:@"73"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-+ (void)sb_readBXPDeviceInfoFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                         failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadBXPDeviceInfoFilterStatusOperation
-                     cmdFlag:@"82"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-
-
-
 
 #pragma mark **************************************** LoRaWAN ************************************************
 
@@ -1218,65 +1201,6 @@
                                     failedBlock:(void (^)(NSError * error))failedBlock {
     [self readDataWithTaskID:mk_sb_taskReadSosAlarmNotifyStatusOperation
                      cmdFlag:@"bd"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-+ (void)sb_readShockThresholdsWithSucBlock:(void (^)(id returnData))sucBlock
-                               failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadShockThresholdsOperation
-                     cmdFlag:@"b4"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readShockDetectionReportIntervalWithSucBlock:(void (^)(id returnData))sucBlock
-                                            failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadShockDetectionReportIntervalOperation
-                     cmdFlag:@"b5"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readShockTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
-                            failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadShockTimeoutOperation
-                     cmdFlag:@"b6"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readActiveStateCountStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                      failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadActiveStateCountStatusOperation
-                     cmdFlag:@"ba"
-                    sucBlock:sucBlock
-                 failedBlock:failedBlock];
-}
-
-+ (void)sb_readActiveStateTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
-                                  failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_sb_taskReadActiveStateTimeoutOperation
-                     cmdFlag:@"bb"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }

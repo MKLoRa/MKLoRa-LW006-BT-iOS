@@ -32,10 +32,19 @@
             [self operationFailedBlockWithMsg:@"Read Low Power Payload Error" block:failedBlock];
             return;
         }
-        if (![self readShutdownPayload]) {
-            [self operationFailedBlockWithMsg:@"Read Shutdown Payload Error" block:failedBlock];
+        if (![self readLowPowerPrompt]) {
+            [self operationFailedBlockWithMsg:@"Read Low Power Prompt Error" block:failedBlock];
             return;
         }
+        if (![self readBuzzerType]) {
+            [self operationFailedBlockWithMsg:@"Read Buzzer Error" block:failedBlock];
+            return;
+        }
+        if (![self readVibrationIntensity]) {
+            [self operationFailedBlockWithMsg:@"Read Vibration Intensity Error" block:failedBlock];
+            return;
+        }
+        
         moko_dispatch_main_safe(^{
             if (sucBlock) {
                 sucBlock();
@@ -71,11 +80,39 @@
     return success;
 }
 
-- (BOOL)readShutdownPayload {
+- (BOOL)readLowPowerPrompt {
     __block BOOL success = NO;
-    [MKSBInterface sb_readShutdownPayloadStatusWithSucBlock:^(id  _Nonnull returnData) {
+    [MKSBInterface sb_readLowPowerPromptWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        self.shutdownPayload = [returnData[@"result"][@"isOn"] boolValue];
+        self.prompt = [returnData[@"result"][@"prompt"] integerValue];
+        
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)readBuzzerType {
+    __block BOOL success = NO;
+    [MKSBInterface sb_readBuzzerSoundTypeWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.buzzer = [returnData[@"result"][@"buzzer"] integerValue];
+        
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)readVibrationIntensity {
+    __block BOOL success = NO;
+    [MKSBInterface sb_readVibrationIntensityWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.vibration = [returnData[@"result"][@"intensity"] integerValue];
         
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
