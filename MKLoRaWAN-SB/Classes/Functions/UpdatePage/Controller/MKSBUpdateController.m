@@ -81,7 +81,6 @@
     [[MKHudManager share] showHUDWithTitle:@"Waiting..." inView:self.view isPenetration:NO];
     @weakify(self);
     [self.dfuModule updateWithFileUrl:filePath progressBlock:^(CGFloat progress) {
-        
     } sucBlock:^{
         @strongify(self);
         [[MKHudManager share] showHUDWithTitle:@"Update firmware successfully!" inView:self.view isPenetration:NO];

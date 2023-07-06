@@ -112,7 +112,7 @@
         _appNameLabel.textColor = DEFAULT_TEXT_COLOR;
         _appNameLabel.textAlignment = NSTextAlignmentCenter;
         _appNameLabel.font = MKFont(20.f);
-        _appNameLabel.text = @"LW008-MT";
+        _appNameLabel.text = @"LW006-SB";
     }
     return _appNameLabel;
 }
