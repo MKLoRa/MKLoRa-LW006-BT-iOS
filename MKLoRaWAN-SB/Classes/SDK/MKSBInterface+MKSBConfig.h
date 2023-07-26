@@ -720,7 +720,7 @@ NS_ASSUME_NONNULL_BEGIN
                       failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Configure the WIFI positioning timeout.
-/// @param interval 1~4.   unit : 2.5s.
+/// @param interval 1~10.   unit : s.
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
 + (void)sb_configWifiPositioningTimeout:(NSInteger)interval

@@ -284,7 +284,7 @@ mk_textSwitchCellDelegate>
 /// @param isOn 当前开关状态
 /// @param index 当前cell所在的index
 - (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
-    if (index == 1) {
+    if (index == 0) {
         //Low-power Payload
         [self configLowPowerPayload:isOn];
         return;

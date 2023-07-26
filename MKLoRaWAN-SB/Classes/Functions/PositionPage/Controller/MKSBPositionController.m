@@ -87,7 +87,7 @@ mk_textSwitchCellDelegate>
     }
     if (indexPath.section == 0 && indexPath.row == 2) {
         //GPS Fix
-        if ([[MKSBConnectModel shared].deviceType isEqualToString:@"10"]) {
+        if ([[MKSBConnectModel shared].deviceType isEqualToString:@"00"]) {
             //L76C
             MKSBLCGpsFixController *vc = [[MKSBLCGpsFixController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];

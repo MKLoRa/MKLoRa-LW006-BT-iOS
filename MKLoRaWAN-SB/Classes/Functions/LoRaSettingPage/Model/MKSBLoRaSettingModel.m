@@ -54,7 +54,7 @@
             return;
         }
         if (![self readDevAddr]) {
-            [self operationFailedBlockWithMsg:@"Read Region Error" block:failedBlock];
+            [self operationFailedBlockWithMsg:@"Read DevAddr Error" block:failedBlock];
             return;
         }
         if (![self readAppSkey]) {
@@ -93,7 +93,7 @@
             || self.region == 7 || self.region == 9) {
             //CN470, CN779, EU433, EU868,KR920, IN865, RU864
             if (![self readJoinValue]) {
-                [self operationFailedBlockWithMsg:@"Read Dr For Join Error" block:failedBlock];
+                [self operationFailedBlockWithMsg:@"Read DR For Join Error" block:failedBlock];
                 return;
             }
         }
@@ -234,15 +234,17 @@
     }else if (self.region == 3 || self.region == 4 || self.region == 5 || self.region == 6 || self.region == 7) {
         //CN779、EU433、EU868、KR920、IN865
         self.CHH = 2;
-    }else if (self.region == 0 || self.region == 9) {
-        //RU864、AS923
+    }else if (self.region == 0 || self.region == 9 || self.region == 10
+              || self.region == 11 || self.region == 12 || self.region == 13) {
+        //RU864、AS923、AS923-1、AS923-2、AS923-3、AS923-4
         self.CHH = 1;
     }
     self.dutyIsOn = NO;
     
     self.adrIsOn = YES;
-    if (self.region == 0 || self.region == 1) {
-        //AS923、AU915
+    if (self.region == 0 || self.region == 1 || self.region == 10
+        || self.region == 11 || self.region == 12 || self.region == 13) {
+        //AS923、AU915、AS923-1、AS923-2、AS923-3、AS923-4
         self.join = 2;
         self.DRL = 2;
         self.DRH = 2;
@@ -276,8 +278,9 @@
 }
 
 - (NSArray <NSString *>*)DRValueList; {
-    if (self.region == 0) {
-        //AS923
+    if (self.region == 0 || self.region == 10
+        || self.region == 11 || self.region == 12 || self.region == 13) {
+        //AS923、AS923-1、AS923-2、AS923-3、AS923-4
         return @[@"2",@"3",@"4",@"5"];
     }
     if (self.region == 1) {
@@ -713,7 +716,7 @@
             return NO;
         }
     }
-    if (self.region < 0 || self.region > 9) {
+    if (self.region < 0 || self.region > 13) {
         return NO;
     }
 
@@ -727,8 +730,10 @@
             }
         }
         if (self.region == 0 || self.region == 2 || self.region == 3
-            || self.region == 4 || self.region == 5 || self.region == 6 || self.region == 7) {
-            //CN470, CN779, EU433, EU868,KR920, IN865, RU864
+            || self.region == 4 || self.region == 5 || self.region == 6 || self.region == 7
+            || self.region == 10
+            || self.region == 11 || self.region == 12 || self.region == 13) {
+            //CN470, CN779, EU433, EU868,KR920, IN865, RU864、AS923-1、AS923-2、AS923-3、AS923-4
             if (self.join < 0 || self.join > 5) {
                 return NO;
             }
@@ -759,7 +764,11 @@
         @"6":@"KR920",
         @"7":@"IN865",
         @"8":@"US915",
-        @"9":@"RU864"
+        @"9":@"RU864",
+        @"10":@"AS923-1",
+        @"11":@"AS923-2",
+        @"12":@"AS923-3",
+        @"13":@"AS923-4"
     };
 }
 

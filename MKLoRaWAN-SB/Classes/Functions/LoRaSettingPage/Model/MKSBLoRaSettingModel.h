@@ -44,6 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
  7:IN865
  8:US915
  9:RU864
+ 10:AS923-1
+ 11:AS923-2
+ 12:AS923-3
+ 13:AS923-4
  */
 @property (nonatomic, assign)NSInteger region;
 

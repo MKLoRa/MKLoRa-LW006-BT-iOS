@@ -159,7 +159,8 @@
     __block BOOL success = NO;
     [MKSBInterface sb_readWifiFixMechanismWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        self.mechanism = [returnData[@"result"][@"mechanism"] integerValue];
+        NSInteger value = [returnData[@"result"][@"mechanism"] integerValue];
+        self.mechanism = (value == 0 ? 1 : 0);
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);
@@ -170,7 +171,8 @@
 
 - (BOOL)configMechanism {
     __block BOOL success = NO;
-    [MKSBInterface sb_configWifiFixMechanism:self.mechanism sucBlock:^{
+    mk_sb_bluetoothFixMechanism value = (self.mechanism == 0 ? mk_sb_wifiFixMechanism_rssiPriority : mk_sb_wifiFixMechanism_timePriority);
+    [MKSBInterface sb_configWifiFixMechanism:value sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
@@ -191,7 +193,7 @@
 }
 
 - (BOOL)checkParams {
-    if (!ValidStr(self.timeout) || [self.timeout integerValue] < 1 || [self.timeout integerValue] > 4) {
+    if (!ValidStr(self.timeout) || [self.timeout integerValue] < 1 || [self.timeout integerValue] > 10) {
         return NO;
     }
     if (!ValidStr(self.number) || [self.number integerValue] < 1 || [self.number integerValue] > 5) {

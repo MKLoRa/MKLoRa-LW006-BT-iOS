@@ -178,10 +178,10 @@ MKTextButtonCellDelegate>
     MKTextFieldCellModel *cellModel1 = [[MKTextFieldCellModel alloc] init];
     cellModel1.index = 0;
     cellModel1.msg = @"Positioning Timeout";
-    cellModel1.textPlaceholder = @"1~4";
+    cellModel1.textPlaceholder = @"1~10";
     cellModel1.textFieldType = mk_realNumberOnly;
-    cellModel1.maxLength = 1;
-    cellModel1.unit = @"x 2.5s";
+    cellModel1.maxLength = 2;
+    cellModel1.unit = @"s";
     cellModel1.textFieldValue = self.dataModel.timeout;
     [self.section0List addObject:cellModel1];
     
@@ -200,7 +200,7 @@ MKTextButtonCellDelegate>
     MKTextButtonCellModel *cellModel1 = [[MKTextButtonCellModel alloc] init];
     cellModel1.index = 0;
     cellModel1.msg = @"WIFI Data Type";
-    cellModel1.dataList = @[@"DAS",@"Customer"];
+    cellModel1.dataList = @[@"DAS(Semetech)",@"Customer"];
     cellModel1.dataListIndex = self.dataModel.dataType;
     [self.section1List addObject:cellModel1];
     

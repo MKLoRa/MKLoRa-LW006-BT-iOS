@@ -153,6 +153,10 @@ typedef NS_ENUM(NSInteger, mk_sb_loraWanRegion) {
     mk_sb_loraWanRegionIN865,
     mk_sb_loraWanRegionUS915,
     mk_sb_loraWanRegionRU864,
+    mk_sb_loraWanRegionAS923_1,
+    mk_sb_loraWanRegionAS923_2,
+    mk_sb_loraWanRegionAS923_3,
+    mk_sb_loraWanRegionAS923_4,
 };
 
 typedef NS_ENUM(NSInteger, mk_sb_loraWanModem) {

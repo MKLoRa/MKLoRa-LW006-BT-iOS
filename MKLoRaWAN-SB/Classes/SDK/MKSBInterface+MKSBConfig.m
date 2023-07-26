@@ -1287,7 +1287,7 @@ static NSInteger const maxDataLen = 100;
 + (void)sb_configWifiPositioningTimeout:(NSInteger)interval
                                sucBlock:(void (^)(void))sucBlock
                             failedBlock:(void (^)(NSError *error))failedBlock {
-    if (interval < 1 || interval > 4) {
+    if (interval < 1 || interval > 10) {
         [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
         return;
     }

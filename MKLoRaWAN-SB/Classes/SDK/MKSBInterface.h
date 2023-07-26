@@ -1161,7 +1161,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Read the WIFI positioning timeout.The current value multiplied by 2.5 is the actual time (unit: s).
 /*
  @{
-    @"interval":@"1"
+    @"interval":@"1",       //Unit:s
  }
  */
 /// @param sucBlock Success callback
@@ -1369,6 +1369,10 @@ NS_ASSUME_NONNULL_BEGIN
  7:IN865
  8:US915
  9:RU864
+ 10:AS923-1
+ 11:AS923-2
+ 12:AS923-3
+ 13:AS923-4
  */
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback

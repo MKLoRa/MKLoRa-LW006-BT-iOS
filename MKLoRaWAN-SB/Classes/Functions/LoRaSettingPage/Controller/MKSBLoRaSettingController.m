@@ -728,7 +728,7 @@ MKLoRaSettingCHCellDelegate>
     MKTextButtonCellModel *regionModel = [[MKTextButtonCellModel alloc] init];
     regionModel.index = 1;
     regionModel.msg = @"Region/Subnet";
-    regionModel.dataList = @[@"AS923",@"AU915",@"CN470",@"CN779",@"EU433",@"EU868",@"KR920",@"IN865",@"US915",@"RU864"];
+    regionModel.dataList = @[@"AS923",@"AU915",@"CN470",@"CN779",@"EU433",@"EU868",@"KR920",@"IN865",@"US915",@"RU864",@"AS923-1",@"AS923-2",@"AS923-3",@"AS923-4"];
     regionModel.buttonLabelFont = MKFont(13.f);
     regionModel.dataListIndex = self.dataModel.region;
     [self.section2List addObject:regionModel];

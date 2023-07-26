@@ -204,8 +204,16 @@
     __block BOOL success = NO;
     [MKSBInterface sb_readFilterByPirMajorRangeWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        self.minMajor = returnData[@"result"][@"minValue"];
-        self.maxMajor = returnData[@"result"][@"maxValue"];
+        NSInteger min = [returnData[@"result"][@"minValue"] integerValue];
+        NSInteger max = [returnData[@"result"][@"maxValue"] integerValue];
+        
+        if (min == 0 && max == 65535) {
+            self.minMajor = @"";
+            self.maxMajor = @"";
+        }else {
+            self.minMajor = returnData[@"result"][@"minValue"];
+            self.maxMajor = returnData[@"result"][@"maxValue"];
+        }
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);
@@ -217,13 +225,14 @@
 - (BOOL)configFilterMajor {
     __block BOOL success = NO;
     NSInteger min = 0;
-    if (ValidStr(self.minMajor)) {
-        min = [self.minMajor integerValue];
-    }
     NSInteger max = 0;
-    if (ValidStr(self.maxMajor)) {
+    if (ValidStr(self.minMajor) && ValidStr(self.maxMajor)) {
+        min = [self.minMajor integerValue];
         max = [self.maxMajor integerValue];
+    }else {
+        max = 65535;
     }
+    
     [MKSBInterface sb_configFilterByPirMajorMinValue:min maxValue:max sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
@@ -238,8 +247,16 @@
     __block BOOL success = NO;
     [MKSBInterface sb_readFilterByPirMinorRangeWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        self.minMinor = returnData[@"result"][@"minValue"];
-        self.maxMinor = returnData[@"result"][@"maxValue"];
+        NSInteger min = [returnData[@"result"][@"minValue"] integerValue];
+        NSInteger max = [returnData[@"result"][@"maxValue"] integerValue];
+        
+        if (min == 0 && max == 65535) {
+            self.minMinor = @"";
+            self.maxMinor = @"";
+        }else {
+            self.minMinor = returnData[@"result"][@"minValue"];
+            self.maxMinor = returnData[@"result"][@"maxValue"];
+        }
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);
@@ -251,13 +268,14 @@
 - (BOOL)configFilterMinor {
     __block BOOL success = NO;
     NSInteger min = 0;
-    if (ValidStr(self.minMinor)) {
-        min = [self.minMinor integerValue];
-    }
     NSInteger max = 0;
-    if (ValidStr(self.maxMinor)) {
+    if (ValidStr(self.minMinor) && ValidStr(self.maxMinor)) {
+        min = [self.minMinor integerValue];
         max = [self.maxMinor integerValue];
+    }else {
+        max = 65535;
     }
+    
     [MKSBInterface sb_configFilterByPirMinorMinValue:min maxValue:max sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);

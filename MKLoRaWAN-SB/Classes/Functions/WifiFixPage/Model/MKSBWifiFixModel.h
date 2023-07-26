@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)NSString *number;
 
-/// 0:DAS   1:Customer
+/// 0:DAS(Semetech)   1:Customer
 @property (nonatomic, assign)NSInteger dataType;
 
 /// 0:Time Priority  1:RSSI Priority

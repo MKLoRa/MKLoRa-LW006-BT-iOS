@@ -13,6 +13,7 @@
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"
 #import "UIView+MKAdd.h"
+#import "UITableView+MKAdd.h"
 
 #import "MKHudManager.h"
 #import "MKTextButtonCell.h"
@@ -107,22 +108,22 @@ MKTextButtonCellDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return self.section0List.count;
+        return (self.dataModel.deviceType == 1 ? self.section0List.count : 1);
     }
     if (section == 1) {
-        return self.section1List.count;
+        return (self.dataModel.heartbeatType == 1 ? self.section1List.count : 1);
     }
     if (section == 2) {
-        return self.section2List.count;
+        return (self.dataModel.lowpowerType == 1 ? self.section2List.count : 1);
     }
     if (section == 3) {
-        return self.section3List.count;
+        return (self.dataModel.eventType == 1 ? self.section3List.count : 1);
     }
     if (section == 4) {
-        return self.section4List.count;
+        return (self.dataModel.gpsType == 1 ? self.section4List.count : 1);
     }
     if (section == 5) {
-        return self.section5List.count;
+        return (self.dataModel.positioningType == 1 ? self.section5List.count : 1);
     }
     return 0;
 }
@@ -177,6 +178,8 @@ MKTextButtonCellDelegate>
         MKTextButtonCellModel *cellModel = self.section0List[0];
         cellModel.dataListIndex = dataListIndex;
         self.dataModel.deviceType = dataListIndex;
+        
+        [self.tableView mk_reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
     if (index == 1) {
@@ -191,6 +194,8 @@ MKTextButtonCellDelegate>
         MKTextButtonCellModel *cellModel = self.section1List[0];
         cellModel.dataListIndex = dataListIndex;
         self.dataModel.heartbeatType = dataListIndex;
+        
+        [self.tableView mk_reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
     if (index == 3) {
@@ -205,6 +210,8 @@ MKTextButtonCellDelegate>
         MKTextButtonCellModel *cellModel = self.section2List[0];
         cellModel.dataListIndex = dataListIndex;
         self.dataModel.lowpowerType = dataListIndex;
+        
+        [self.tableView mk_reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
     if (index == 5) {
@@ -219,6 +226,8 @@ MKTextButtonCellDelegate>
         MKTextButtonCellModel *cellModel = self.section3List[0];
         cellModel.dataListIndex = dataListIndex;
         self.dataModel.eventType = dataListIndex;
+        
+        [self.tableView mk_reloadSection:3 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
     if (index == 7) {
@@ -233,6 +242,8 @@ MKTextButtonCellDelegate>
         MKTextButtonCellModel *cellModel = self.section4List[0];
         cellModel.dataListIndex = dataListIndex;
         self.dataModel.gpsType = dataListIndex;
+        
+        [self.tableView mk_reloadSection:4 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
     if (index == 9) {
@@ -247,6 +258,8 @@ MKTextButtonCellDelegate>
         MKTextButtonCellModel *cellModel = self.section5List[0];
         cellModel.dataListIndex = dataListIndex;
         self.dataModel.positioningType = dataListIndex;
+        
+        [self.tableView mk_reloadSection:5 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
     if (index == 11) {

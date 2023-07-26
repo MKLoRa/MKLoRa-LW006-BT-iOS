@@ -150,7 +150,8 @@
     __block BOOL success = NO;
     [MKSBInterface sb_readBluetoothFixMechanismWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        self.priority = [returnData[@"result"][@"priority"] integerValue];
+        NSInteger value = [returnData[@"result"][@"priority"] integerValue];
+        self.priority = (value == 0 ? 1 : 0);
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);
@@ -161,7 +162,8 @@
 
 - (BOOL)configBlePriority {
     __block BOOL success = NO;
-    [MKSBInterface sb_configBluetoothFixMechanism:self.priority sucBlock:^{
+    mk_sb_bluetoothFixMechanism mechanism = (self.priority == 1 ? mk_sb_bluetoothFixMechanism_timePriority : mk_sb_bluetoothFixMechanism_rssiPriority);
+    [MKSBInterface sb_configBluetoothFixMechanism:mechanism sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

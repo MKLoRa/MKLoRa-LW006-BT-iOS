@@ -14,6 +14,7 @@
 #import "MKBaseTableView.h"
 #import "UIView+MKAdd.h"
 #import "UITableView+MKAdd.h"
+#import "MKAlertView.h"
 
 #import "MKHudManager.h"
 #import "MKTextSwitchCell.h"
@@ -82,7 +83,7 @@ mk_textSwitchCellDelegate>
     }
     if (index == 2) {
         //Power Off
-        [self configPowerOff];
+        [self powerOff];
         return;
     }
     if (index == 3) {
@@ -135,13 +136,36 @@ mk_textSwitchCellDelegate>
     }];
 }
 
-- (void)configPowerOff {
+#pragma mark - 开关机
+- (void)powerOff{
+    @weakify(self);
+    MKAlertViewAction *cancelAction = [[MKAlertViewAction alloc] initWithTitle:@"Cancel" handler:^{
+        @strongify(self);
+        [self.tableView mk_reloadSection:7 withRowAnimation:UITableViewRowAnimationNone];
+    }];
+    
+    MKAlertViewAction *confirmAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{
+        @strongify(self);
+        [self commandPowerOff];
+    }];
+    NSString *msg = @"Are you sure to turn off the device? Please make sure the device has a button to turn on!";
+    MKAlertView *alertView = [[MKAlertView alloc] init];
+    [alertView addAction:cancelAction];
+    [alertView addAction:confirmAction];
+    [alertView showAlertWithTitle:@"Warning!" message:msg notificationName:@"mk_bv_needDismissAlert"];
+}
+
+- (void)commandPowerOff{
+    [[MKHudManager share] showHUDWithTitle:@"Setting..."
+                                     inView:self.view
+                              isPenetration:NO];
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     [MKSBInterface sb_powerOffWithSucBlock:^{
         [[MKHudManager share] hide];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadRow:2 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
 

@@ -904,7 +904,7 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
         //读取星历开始更新事件开关(LR1110)
         NSString *binary = [MKBLEBaseSDKAdopter binaryByhex:content];
         BOOL start = ([[binary substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"1"]);
-        BOOL end = ([[binary substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"01"]);
+        BOOL end = ([[binary substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"1"]);
         resultDic = @{
             @"start":@(start),
             @"end":@(end)
