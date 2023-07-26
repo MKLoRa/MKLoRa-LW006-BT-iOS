@@ -260,6 +260,7 @@ MKSBFilterBeaconCellDelegate>
     cellModel4.msg = @"Detection Status";
     cellModel4.dataList = @[@"No motion detected",@"Motion detected",@"All"];
     cellModel4.dataListIndex = self.dataModel.detection;
+    cellModel4.buttonLabelFont = MKFont(13.f);
     [self.section1List addObject:cellModel4];
 }
 

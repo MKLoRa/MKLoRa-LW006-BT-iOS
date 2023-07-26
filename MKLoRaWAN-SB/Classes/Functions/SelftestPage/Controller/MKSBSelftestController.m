@@ -83,6 +83,10 @@ MKButtonMsgCellDelegate>
         MKButtonMsgCellModel *cellModel = self.section4List[indexPath.row];
         return [cellModel cellHeightWithContentWidth:kViewWidth];
     }
+    if (indexPath.section == 7) {
+        MKNormalTextCellModel *cellModel = self.section7List[indexPath.row];
+        return [cellModel cellHeightWithContentWidth:kViewWidth];
+    }
     return 44.f;
 }
 
@@ -358,9 +362,9 @@ MKButtonMsgCellDelegate>
     if ([self.dataModel.l76c integerValue] == 0 && [self.dataModel.acceData integerValue] == 0 && [self.dataModel.flash integerValue] == 0) {
         cellModel.value0 = @"0";
     }
-    cellModel.value1 = ([self.dataModel.flash integerValue] == 1 ? @"3" : @"");
+    cellModel.value1 = ([self.dataModel.l76c integerValue] == 1 ? @"1" : @"");
     cellModel.value2 = ([self.dataModel.acceData integerValue] == 1 ? @"2" : @"");
-    cellModel.value3 = ([self.dataModel.l76c integerValue] == 1 ? @"1" : @"");
+    cellModel.value3 = ([self.dataModel.flash integerValue] == 1 ? @"3" : @"");
     
     [self.section0List addObject:cellModel];
 }
@@ -425,7 +429,7 @@ MKButtonMsgCellDelegate>
 - (void)loadSection7Datas {
     MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
     cellModel.leftMsg = @"HW Version";
-    cellModel.rightMsg = (self.dataModel.hwVersion == 0 ? @"Traditional GPS module Supported" : @"No");
+    cellModel.rightMsg = (self.dataModel.hwVersion == 1 ? @"Traditional GPS module Supported" : @"No");
     [self.section7List addObject:cellModel];
 }
 

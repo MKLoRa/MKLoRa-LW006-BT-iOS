@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 0:Normal  1:Fault
 @property (nonatomic, assign)NSInteger motorState;
 
-/// 0:Traditional GPS module Supported  1:No
+/// 0:No 1:Traditional GPS module Supported
 @property (nonatomic, assign)NSInteger hwVersion;
 
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;;
