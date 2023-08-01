@@ -467,6 +467,7 @@ PODS:
     - MKBaseModuleLibrary
     - MKCustomUIModule
     - MKLoRaWAN-SB/Expand/FilterCell (= 0.0.1)
+    - MKLoRaWAN-SB/Expand/MsgInfoCell (= 0.0.1)
     - MKLoRaWAN-SB/Expand/TextButtonCell (= 0.0.1)
   - MKLoRaWAN-SB/Expand/FilterCell (0.0.1):
     - MKBaseModuleLibrary
@@ -485,6 +486,9 @@ PODS:
     - MKBaseModuleLibrary
     - MKCustomUIModule
   - MKLoRaWAN-SB/Expand/FilterCell/FilterNormalTextFieldCell (0.0.1):
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+  - MKLoRaWAN-SB/Expand/MsgInfoCell (0.0.1):
     - MKBaseModuleLibrary
     - MKCustomUIModule
   - MKLoRaWAN-SB/Expand/TextButtonCell (0.0.1):
@@ -2310,7 +2314,7 @@ SPEC CHECKSUMS:
   MKBaseBleModule: 15aa067c4e408a473e025b1a768ebce00a7e5949
   MKBaseModuleLibrary: 8d0292b517d87552083f9180eeaa4569605707db
   MKCustomUIModule: 83b76a0ccd1ac855157091b389154bd6a309c414
-  MKLoRaWAN-SB: 59af96953a37c05e3eecde23497d2c08c2b1f7b7
+  MKLoRaWAN-SB: f0cf05915bd2c48409f5fe045edd1bac6c2c29a9
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196

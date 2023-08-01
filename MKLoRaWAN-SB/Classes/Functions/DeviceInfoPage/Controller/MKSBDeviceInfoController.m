@@ -25,6 +25,8 @@
 
 #import "MKSBDeviceInfoModel.h"
 
+#import "MKSBDeviceInfoCell.h"
+
 #import "MKSBUpdateController.h"
 #import "MKSBSelftestController.h"
 #import "MKSBDebuggerController.h"
@@ -83,6 +85,10 @@ MKSBTextButtonCellDelegate>
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 4) {
+        MKSBDeviceInfoCellModel *cellModel = self.section4List[indexPath.row];
+        return [cellModel cellHeightWithContentWidth:kViewWidth];
+    }
     return 44.f;
 }
 
@@ -159,7 +165,7 @@ MKSBTextButtonCellDelegate>
         return cell;
     }
     if (indexPath.section == 4) {
-        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+        MKSBDeviceInfoCell *cell = [MKSBDeviceInfoCell initCellWithTableView:tableView];
         cell.dataModel =  self.section4List[indexPath.row];
         return cell;
     }
@@ -226,16 +232,16 @@ MKSBTextButtonCellDelegate>
     }
     
     if (ValidStr(self.dataModel.macAddress)) {
-        MKNormalTextCellModel *mac = self.section4List[0];
+        MKSBDeviceInfoCellModel *mac = self.section4List[0];
         mac.rightMsg = self.dataModel.macAddress;
     }
     if (ValidStr(self.dataModel.productMode)) {
-        MKNormalTextCellModel *produceModel = self.section4List[1];
+        MKSBDeviceInfoCellModel *produceModel = self.section4List[1];
         produceModel.rightMsg = self.dataModel.productMode;
     }
     
     if (ValidStr(self.dataModel.manu)) {
-        MKNormalTextCellModel *manuModel = self.section4List[2];
+        MKSBDeviceInfoCellModel *manuModel = self.section4List[2];
         manuModel.rightMsg = self.dataModel.manu;
     }
     [self.tableView reloadData];
@@ -285,15 +291,15 @@ MKSBTextButtonCellDelegate>
 }
 
 - (void)loadSection4Datas {
-    MKNormalTextCellModel *cellModel1 = [[MKNormalTextCellModel alloc] init];
+    MKSBDeviceInfoCellModel *cellModel1 = [[MKSBDeviceInfoCellModel alloc] init];
     cellModel1.leftMsg = @"MAC Address";
     [self.section4List addObject:cellModel1];
     
-    MKNormalTextCellModel *cellModel2 = [[MKNormalTextCellModel alloc] init];
+    MKSBDeviceInfoCellModel *cellModel2 = [[MKSBDeviceInfoCellModel alloc] init];
     cellModel2.leftMsg = @"Product Model";
     [self.section4List addObject:cellModel2];
     
-    MKNormalTextCellModel *cellModel3 = [[MKNormalTextCellModel alloc] init];
+    MKSBDeviceInfoCellModel *cellModel3 = [[MKSBDeviceInfoCellModel alloc] init];
     cellModel3.leftMsg = @"Manufacture";
     [self.section4List addObject:cellModel3];
 }

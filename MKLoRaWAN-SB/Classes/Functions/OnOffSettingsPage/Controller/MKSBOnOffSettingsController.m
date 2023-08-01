@@ -141,7 +141,7 @@ mk_textSwitchCellDelegate>
     @weakify(self);
     MKAlertViewAction *cancelAction = [[MKAlertViewAction alloc] initWithTitle:@"Cancel" handler:^{
         @strongify(self);
-        [self.tableView mk_reloadSection:7 withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView mk_reloadRow:2 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
     }];
     
     MKAlertViewAction *confirmAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{

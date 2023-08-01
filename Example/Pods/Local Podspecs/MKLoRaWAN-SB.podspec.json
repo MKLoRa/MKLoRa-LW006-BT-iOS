@@ -103,6 +103,10 @@
           "source_files": "MKLoRaWAN-SB/Classes/Expand/TextButtonCell/**"
         },
         {
+          "name": "MsgInfoCell",
+          "source_files": "MKLoRaWAN-SB/Classes/Expand/MsgInfoCell/**"
+        },
+        {
           "name": "FilterCell",
           "subspecs": [
             {

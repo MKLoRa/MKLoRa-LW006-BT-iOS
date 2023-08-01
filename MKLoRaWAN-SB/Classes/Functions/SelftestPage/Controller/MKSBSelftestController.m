@@ -26,6 +26,8 @@
 
 #import "MKSBSelftestModel.h"
 
+#import "MKSBDeviceInfoCell.h"
+
 #import "MKSBSelftestCell.h"
 #import "MKSBPCBAStatusCell.h"
 #import "MKSBBatteryInfoCell.h"
@@ -84,7 +86,7 @@ MKButtonMsgCellDelegate>
         return [cellModel cellHeightWithContentWidth:kViewWidth];
     }
     if (indexPath.section == 7) {
-        MKNormalTextCellModel *cellModel = self.section7List[indexPath.row];
+        MKSBDeviceInfoCellModel *cellModel = self.section7List[indexPath.row];
         return [cellModel cellHeightWithContentWidth:kViewWidth];
     }
     return 44.f;
@@ -175,7 +177,7 @@ MKButtonMsgCellDelegate>
         cell.delegate = self;
         return cell;
     }
-    MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+    MKSBDeviceInfoCell *cell = [MKSBDeviceInfoCell initCellWithTableView:tableView];
     cell.dataModel = self.section7List[indexPath.row];
     return cell;
 }
@@ -427,7 +429,7 @@ MKButtonMsgCellDelegate>
     [self.section6List addObject:cellModel];
 }
 - (void)loadSection7Datas {
-    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
+    MKSBDeviceInfoCellModel *cellModel = [[MKSBDeviceInfoCellModel alloc] init];
     cellModel.leftMsg = @"HW Version";
     cellModel.rightMsg = (self.dataModel.hwVersion == 1 ? @"Traditional GPS module Supported" : @"No");
     [self.section7List addObject:cellModel];

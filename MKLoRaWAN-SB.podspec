@@ -83,6 +83,10 @@ TODO: Add long description of the pod here.
       sss.source_files = 'MKLoRaWAN-SB/Classes/Expand/TextButtonCell/**'
     end
     
+    ss.subspec 'MsgInfoCell' do |sss|
+      sss.source_files = 'MKLoRaWAN-SB/Classes/Expand/MsgInfoCell/**'
+    end
+    
     ss.subspec 'FilterCell' do |sss|
       sss.subspec 'FilterBeaconCell' do |ssss|
         ssss.source_files = 'MKLoRaWAN-SB/Classes/Expand/FilterCell/FilterBeaconCell/**'

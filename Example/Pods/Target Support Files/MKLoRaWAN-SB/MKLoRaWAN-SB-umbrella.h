@@ -19,6 +19,7 @@
 #import "MKSBFilterByRawDataCell.h"
 #import "MKSBFilterEditSectionHeaderView.h"
 #import "MKSBFilterNormalTextFieldCell.h"
+#import "MKSBDeviceInfoCell.h"
 #import "MKSBTextButtonCell.h"
 #import "MKSBAboutController.h"
 #import "MKSBAlarmFunctionController.h"
