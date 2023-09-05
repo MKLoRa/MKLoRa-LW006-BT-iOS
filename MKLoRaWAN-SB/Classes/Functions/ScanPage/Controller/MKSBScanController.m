@@ -98,7 +98,7 @@ MKSearchButtonDelegate>
 #pragma mark - super method
 
 - (void)rightButtonMethod {
-    UIViewController *vc = [[CTMediator sharedInstance] CTMediator_LORAWAN_sb_AboutPage];
+    UIViewController *vc = [[CTMediator sharedInstance] CTMediator_LORAWAN_SB_AboutPage];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
