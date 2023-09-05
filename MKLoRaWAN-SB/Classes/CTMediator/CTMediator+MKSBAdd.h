@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CTMediator (MKSBAdd)
 
 /// 关于页面
-- (UIViewController *)CTMediator_LORAWAN_sb_AboutPage;
+- (UIViewController *)CTMediator_LORAWAN_SB_AboutPage;
 
 @end
 
