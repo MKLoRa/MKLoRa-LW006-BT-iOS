@@ -1,5 +1,5 @@
 //
-//  Target_LoRaWANsb_Module.h
+//  Target_LoRaWANSB_Module.h
 //  MKLoRaWAN-SB_Example
 //
 //  Created by aa on 2023/6/26.
@@ -10,13 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Target_LoRaWANsb_Module : NSObject
+@interface Target_LoRaWANSB_Module : NSObject
 
 /// 扫描页面
-- (UIViewController *)Action_LoRaWANsb_Module_ScanController:(NSDictionary *)params;
+- (UIViewController *)Action_LoRaWANSB_Module_ScanController:(NSDictionary *)params;
 
 /// 关于页面
-- (UIViewController *)Action_LoRaWANsb_Module_AboutController:(NSDictionary *)params;
+- (UIViewController *)Action_LoRaWANSB_Module_AboutController:(NSDictionary *)params;
 
 @end
 
