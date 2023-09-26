@@ -728,7 +728,7 @@ NS_ASSUME_NONNULL_BEGIN
                             failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Configure the number of BSSIDs with successful WIFI positioning.
-/// @param number 1~5.
+/// @param number 1~15.
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
 + (void)sb_configWifiNumberOfBSSID:(NSInteger)number
@@ -752,7 +752,7 @@ NS_ASSUME_NONNULL_BEGIN
                            failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// The number of MACs for Bluetooth positioning.
-/// @param number 1~5
+/// @param number 1~15
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
 + (void)sb_configBlePositioningNumberOfMac:(NSInteger)number

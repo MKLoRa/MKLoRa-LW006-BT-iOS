@@ -188,9 +188,9 @@ MKTextButtonCellDelegate>
     MKTextFieldCellModel *cellModel2 = [[MKTextFieldCellModel alloc] init];
     cellModel2.index = 1;
     cellModel2.msg = @"Number Of BSSID";
-    cellModel2.textPlaceholder = @"1~5";
+    cellModel2.textPlaceholder = @"1~15";
     cellModel2.textFieldType = mk_realNumberOnly;
-    cellModel2.maxLength = 1;
+    cellModel2.maxLength = 2;
     cellModel2.unit = @"  ";
     cellModel2.textFieldValue = self.dataModel.number;
     [self.section0List addObject:cellModel2];
