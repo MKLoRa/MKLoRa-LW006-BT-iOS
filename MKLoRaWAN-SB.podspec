@@ -142,7 +142,7 @@ TODO: Add long description of the pod here.
       sss.subspec 'Controller' do |ssss|
         ssss.source_files = 'MKLoRaWAN-SB/Classes/Functions/AlertAlarmSettingsPage/Controller/**'
         
-        ssss.dependency 'MKLoRaWAN-SB/Functions/AlarmFunctionPage/Model'
+        ssss.dependency 'MKLoRaWAN-SB/Functions/AlertAlarmSettingsPage/Model'
       end
       
       sss.subspec 'Model' do |ssss|
