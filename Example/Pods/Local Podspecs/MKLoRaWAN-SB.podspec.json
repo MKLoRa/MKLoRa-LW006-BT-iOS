@@ -59,7 +59,7 @@
     },
     {
       "name": "SDK",
-      "source_files": "MKLoRaWAN-SB/Classes/SDK/**",
+      "source_files": "MKLoRaWAN-SB/Classes/SDK/BLE/**",
       "dependencies": {
         "MKBaseBleModule": [
 
@@ -130,6 +130,15 @@
       ]
     },
     {
+      "name": "LoginManager",
+      "source_files": "MKLoRaWAN-SB/Classes/LoginManager/**",
+      "dependencies": {
+        "MKIotCloudManager": [
+
+        ]
+      }
+    },
+    {
       "name": "Functions",
       "dependencies": {
         "MKLoRaWAN-SB/SDK": [
@@ -145,6 +154,9 @@
 
         ],
         "MKLoRaWAN-SB/Expand": [
+
+        ],
+        "MKLoRaWAN-SB/LoginManager": [
 
         ],
         "MKBaseModuleLibrary": [
@@ -211,7 +223,7 @@
               "name": "Controller",
               "source_files": "MKLoRaWAN-SB/Classes/Functions/AlertAlarmSettingsPage/Controller/**",
               "dependencies": {
-                "MKLoRaWAN-SB/Functions/AlarmFunctionPage/Model": [
+                "MKLoRaWAN-SB/Functions/AlertAlarmSettingsPage/Model": [
 
                 ]
               }
@@ -779,12 +791,19 @@
               "dependencies": {
                 "MKLoRaWAN-SB/Functions/LoRaSettingPage/Model": [
 
+                ],
+                "MKLoRaWAN-SB/Functions/LoRaSettingPage/View": [
+
                 ]
               }
             },
             {
               "name": "Model",
               "source_files": "MKLoRaWAN-SB/Classes/Functions/LoRaSettingPage/Model/**"
+            },
+            {
+              "name": "View",
+              "source_files": "MKLoRaWAN-SB/Classes/Functions/LoRaSettingPage/View/**"
             }
           ]
         },

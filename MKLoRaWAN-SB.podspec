@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MKLoRaWAN-SB'
-  s.version          = '0.0.2'
+  s.version          = '0.0.3'
   s.summary          = 'A short description of MKLoRaWAN-SB.'
 
 # This description is used to generate tags and improve search results.
@@ -58,7 +58,7 @@ TODO: Add long description of the pod here.
   end
   
   s.subspec 'SDK' do |ss|
-    ss.source_files = 'MKLoRaWAN-SB/Classes/SDK/**'
+    ss.source_files = 'MKLoRaWAN-SB/Classes/SDK/BLE/**'
     
     ss.dependency 'MKBaseBleModule'
   end
@@ -108,6 +108,12 @@ TODO: Add long description of the pod here.
     
     ss.dependency 'MKBaseModuleLibrary'
     ss.dependency 'MKCustomUIModule'
+  end
+  
+  s.subspec 'LoginManager' do |ss|
+    ss.source_files = 'MKLoRaWAN-SB/Classes/LoginManager/**'
+  
+    ss.dependency 'MKIotCloudManager'
   end
   
   s.subspec 'Functions' do |ss|
@@ -513,14 +519,20 @@ TODO: Add long description of the pod here.
     end
     
     ss.subspec 'LoRaSettingPage' do |sss|
+      
       sss.subspec 'Controller' do |ssss|
         ssss.source_files = 'MKLoRaWAN-SB/Classes/Functions/LoRaSettingPage/Controller/**'
         
         ssss.dependency 'MKLoRaWAN-SB/Functions/LoRaSettingPage/Model'
+        ssss.dependency 'MKLoRaWAN-SB/Functions/LoRaSettingPage/View'
       end
       
       sss.subspec 'Model' do |ssss|
         ssss.source_files = 'MKLoRaWAN-SB/Classes/Functions/LoRaSettingPage/Model/**'
+      end
+      
+      sss.subspec 'View' do |ssss|
+        ssss.source_files = 'MKLoRaWAN-SB/Classes/Functions/LoRaSettingPage/View/**'
       end
       
     end
@@ -759,6 +771,7 @@ TODO: Add long description of the pod here.
     ss.dependency 'MKLoRaWAN-SB/CTMediator'
     ss.dependency 'MKLoRaWAN-SB/ConnectModule'
     ss.dependency 'MKLoRaWAN-SB/Expand'
+    ss.dependency 'MKLoRaWAN-SB/LoginManager'
     
     ss.dependency 'MKBaseModuleLibrary'
     ss.dependency 'MKCustomUIModule'
