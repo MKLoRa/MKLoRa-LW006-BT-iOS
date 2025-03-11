@@ -121,6 +121,7 @@
 #import "MKSBDFUModule.h"
 #import "MKSBWifiFixController.h"
 #import "MKSBWifiFixModel.h"
+#import "MKSBNetworkService.h"
 #import "MKSBUserLoginManager.h"
 #import "CBPeripheral+MKSBAdd.h"
 #import "MKSBCentralManager.h"
