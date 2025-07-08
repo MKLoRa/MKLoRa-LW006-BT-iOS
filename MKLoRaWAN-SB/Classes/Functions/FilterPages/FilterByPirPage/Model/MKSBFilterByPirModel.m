@@ -1,19 +1,19 @@
 //
-//  MKFilterByPirModel.m
+//  MKSBFilterByPirModel.m
 //  MKLoRaWAN-SB_Example
 //
 //  Created by aa on 2023/6/30.
 //  Copyright © 2023 aadyx2007@163.com. All rights reserved.
 //
 
-#import "MKFilterByPirModel.h"
+#import "MKSBFilterByPirModel.h"
 
 #import "MKMacroDefines.h"
 
 #import "MKSBInterface.h"
 #import "MKSBInterface+MKSBConfig.h"
 
-@interface MKFilterByPirModel ()
+@interface MKSBFilterByPirModel ()
 
 @property (nonatomic, strong)dispatch_queue_t readQueue;
 
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation MKFilterByPirModel
+@implementation MKSBFilterByPirModel
 
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{

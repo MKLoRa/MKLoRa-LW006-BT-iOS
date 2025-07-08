@@ -29,7 +29,7 @@
 #import "MKSBFilterByTLMController.h"
 #import "MKSBFilterByBXPButtonController.h"
 #import "MKSBFilterByBXPTagController.h"
-#import "MKFilterByPirController.h"
+#import "MKSBFilterByPirController.h"
 #import "MKSBFilterByOtherController.h"
 
 @interface MKSBFilterByRawDataController ()<UITableViewDelegate,
@@ -117,7 +117,7 @@ mk_textSwitchCellDelegate>
     }
     if (indexPath.section == 2 && indexPath.row == 2) {
         //MK-PIR
-        MKFilterByPirController *vc = [[MKFilterByPirController alloc] init];
+        MKSBFilterByPirController *vc = [[MKSBFilterByPirController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }

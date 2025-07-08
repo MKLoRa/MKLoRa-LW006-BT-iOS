@@ -1,12 +1,12 @@
 //
-//  MKFilterByPirController.m
+//  MKSBFilterByPirController.m
 //  MKLoRaWAN-SB_Example
 //
 //  Created by aa on 2023/6/30.
 //  Copyright © 2023 aadyx2007@163.com. All rights reserved.
 //
 
-#import "MKFilterByPirController.h"
+#import "MKSBFilterByPirController.h"
 
 #import "Masonry.h"
 
@@ -23,9 +23,9 @@
 
 #import "MKSBFilterBeaconCell.h"
 
-#import "MKFilterByPirModel.h"
+#import "MKSBFilterByPirModel.h"
 
-@interface MKFilterByPirController ()<UITableViewDelegate,
+@interface MKSBFilterByPirController ()<UITableViewDelegate,
 UITableViewDataSource,
 mk_textSwitchCellDelegate,
 MKTextButtonCellDelegate,
@@ -39,14 +39,14 @@ MKSBFilterBeaconCellDelegate>
 
 @property (nonatomic, strong)NSMutableArray *section2List;
 
-@property (nonatomic, strong)MKFilterByPirModel *dataModel;
+@property (nonatomic, strong)MKSBFilterByPirModel *dataModel;
 
 @end
 
-@implementation MKFilterByPirController
+@implementation MKSBFilterByPirController
 
 - (void)dealloc {
-    NSLog(@"MKFilterByPirController销毁");
+    NSLog(@"MKSBFilterByPirController销毁");
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -283,7 +283,7 @@ MKSBFilterBeaconCellDelegate>
 #pragma mark - UI
 - (void)loadSubViews {
     self.defaultTitle = @"MK-PIR Filter";
-    [self.rightButton setImage:LOADICON(@"MKLoRaWAN-SB", @"MKFilterByPirController", @"sb_slotSaveIcon.png") forState:UIControlStateNormal];
+    [self.rightButton setImage:LOADICON(@"MKLoRaWAN-SB", @"MKSBFilterByPirController", @"sb_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
@@ -324,9 +324,9 @@ MKSBFilterBeaconCellDelegate>
     return _section2List;
 }
 
-- (MKFilterByPirModel *)dataModel {
+- (MKSBFilterByPirModel *)dataModel {
     if (!_dataModel) {
-        _dataModel = [[MKFilterByPirModel alloc] init];
+        _dataModel = [[MKSBFilterByPirModel alloc] init];
     }
     return _dataModel;
 }

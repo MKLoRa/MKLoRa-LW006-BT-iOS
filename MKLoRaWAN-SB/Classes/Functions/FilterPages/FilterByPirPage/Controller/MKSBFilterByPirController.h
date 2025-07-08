@@ -1,5 +1,5 @@
 //
-//  MKFilterByPirController.h
+//  MKSBFilterByPirController.h
 //  MKLoRaWAN-SB_Example
 //
 //  Created by aa on 2023/6/30.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MKFilterByPirController : MKBaseViewController
+@interface MKSBFilterByPirController : MKBaseViewController
 
 @end
 

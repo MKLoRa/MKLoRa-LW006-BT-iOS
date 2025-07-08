@@ -1,5 +1,5 @@
 //
-//  MKFilterByPirModel.h
+//  MKSBFilterByPirModel.h
 //  MKLoRaWAN-SB_Example
 //
 //  Created by aa on 2023/6/30.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MKFilterByPirModel : NSObject
+@interface MKSBFilterByPirModel : NSObject
 
 @property (nonatomic, assign)BOOL isOn;
 
