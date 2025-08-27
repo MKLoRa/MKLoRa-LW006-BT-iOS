@@ -2053,6 +2053,38 @@ static NSInteger const maxDataLen = 100;
                    failedBlock:failedBlock];
 }
 
+#pragma mark ****************************************室外定位参数************************************************
+
++ (void)sb_configOutdoorBLEReportInterval:(NSInteger)interval
+                                 sucBlock:(void (^)(void))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    if (interval < 1 || interval > 100) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *value = [MKBLEBaseSDKAdopter fetchHexValue:interval byteLen:1];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@",@"ed01d001",value];
+    [self configDataWithTaskID:mk_sb_taskConfigOutdoorBLEReportIntervalOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)sb_configOutdoorGPSReportInterval:(NSInteger)interval
+                                 sucBlock:(void (^)(void))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    if (interval < 1 || interval > 14400) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *value = [MKBLEBaseSDKAdopter fetchHexValue:interval byteLen:2];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@",@"ed01d102",value];
+    [self configDataWithTaskID:mk_sb_taskConfigOutdoorGPSReportIntervalOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
 #pragma mark - private method
 + (void)configDataWithTaskID:(mk_sb_taskOperationID)taskID
                         data:(NSString *)data

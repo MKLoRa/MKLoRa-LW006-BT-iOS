@@ -1205,6 +1205,24 @@
                  failedBlock:failedBlock];
 }
 
+#pragma mark ****************************************室外定位参数************************************************
+
++ (void)sb_readOutdoorBLEReportIntervalWithSucBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadOutdoorBLEReportIntervalOperation
+                     cmdFlag:@"d0"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)sb_readOutdoorGPSReportIntervalWithSucBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_sb_taskReadOutdoorGPSReportIntervalOperation
+                     cmdFlag:@"d1"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
 #pragma mark - private method
 
 + (void)readDataWithTaskID:(mk_sb_taskOperationID)taskID

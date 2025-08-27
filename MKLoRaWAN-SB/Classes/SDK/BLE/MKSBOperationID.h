@@ -297,6 +297,10 @@ typedef NS_ENUM(NSInteger, mk_sb_taskOperationID) {
     mk_sb_taskReadSosAlarmReportIntervalOperation,          //读取SOS报警数据上报间隔
     mk_sb_taskReadSosAlarmNotifyStatusOperation,            //读取SOS报警事件通知
     
+#pragma mark - 室外定位参数
+    mk_sb_taskReadOutdoorBLEReportIntervalOperation,    //读取室外蓝牙定位上报间隔
+    mk_sb_taskReadOutdoorGPSReportIntervalOperation,    //读取室外GPS定位上报间隔
+    
 #pragma mark - 设备LoRa参数配置
     mk_sb_taskConfigRegionOperation,                    //配置LoRaWAN的region
     mk_sb_taskConfigModemOperation,                     //配置LoRaWAN的入网类型
@@ -342,4 +346,7 @@ typedef NS_ENUM(NSInteger, mk_sb_taskOperationID) {
     mk_sb_taskReadNumberOfDaysStoredDataOperation,      //读取多少天本地存储的数据
     mk_sb_taskClearAllDatasOperation,                   //清除存储的所有数据
     mk_sb_taskPauseSendLocalDataOperation,              //暂停/恢复数据传输
+    
+    mk_sb_taskConfigOutdoorBLEReportIntervalOperation,      //配置室外蓝牙定位上报间隔
+    mk_sb_taskConfigOutdoorGPSReportIntervalOperation,      //配置室外GPS定位上报间隔
 };

@@ -93,6 +93,8 @@
 #import "MKSBMotionModeModel.h"
 #import "MKSBOnOffSettingsController.h"
 #import "MKSBOnOffSettingsModel.h"
+#import "MKSBOutdoorFixController.h"
+#import "MKSBOutdoorFixModel.h"
 #import "MKSBPeriodicModeController.h"
 #import "MKSBPeriodicModeModel.h"
 #import "MKSBPositionController.h"

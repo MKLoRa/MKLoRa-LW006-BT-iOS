@@ -905,6 +905,24 @@
           ]
         },
         {
+          "name": "OutdoorFixPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-SB/Classes/Functions/OutdoorFixPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-SB/Functions/OutdoorFixPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-SB/Classes/Functions/OutdoorFixPage/Model/**"
+            }
+          ]
+        },
+        {
           "name": "PeriodicModePage",
           "subspecs": [
             {
@@ -942,6 +960,9 @@
 
                 ],
                 "MKLoRaWAN-SB/Functions/LRGpsFixPage/Controller": [
+
+                ],
+                "MKLoRaWAN-SB/Functions/OutdoorFixPage/Controller": [
 
                 ]
               }

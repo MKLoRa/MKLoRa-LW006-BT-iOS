@@ -607,6 +607,19 @@ TODO: Add long description of the pod here.
       
     end
     
+    ss.subspec 'OutdoorFixPage' do |sss|
+      sss.subspec 'Controller' do |ssss|
+        ssss.source_files = 'MKLoRaWAN-SB/Classes/Functions/OutdoorFixPage/Controller/**'
+        
+        ssss.dependency 'MKLoRaWAN-SB/Functions/OutdoorFixPage/Model'
+      end
+      
+      sss.subspec 'Model' do |ssss|
+        ssss.source_files = 'MKLoRaWAN-SB/Classes/Functions/OutdoorFixPage/Model/**'
+      end
+      
+    end
+    
     ss.subspec 'PeriodicModePage' do |sss|
       sss.subspec 'Controller' do |ssss|
         ssss.source_files = 'MKLoRaWAN-SB/Classes/Functions/PeriodicModePage/Controller/**'
@@ -630,6 +643,7 @@ TODO: Add long description of the pod here.
         ssss.dependency 'MKLoRaWAN-SB/Functions/BleFixPage/Controller'
         ssss.dependency 'MKLoRaWAN-SB/Functions/LCGpsFixPage/Controller'
         ssss.dependency 'MKLoRaWAN-SB/Functions/LRGpsFixPage/Controller'
+        ssss.dependency 'MKLoRaWAN-SB/Functions/OutdoorFixPage/Controller'
       end
       
       sss.subspec 'Model' do |ssss|

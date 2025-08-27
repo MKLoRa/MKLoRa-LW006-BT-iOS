@@ -374,6 +374,8 @@
             return @"05";
         case mk_sb_positioningStrategy_wifiAndBleAndGps:
             return @"06";
+        case mk_sb_positioningStrategy_BleGps:
+            return @"07";
     }
 }
 

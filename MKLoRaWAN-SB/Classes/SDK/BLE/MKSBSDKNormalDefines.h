@@ -66,6 +66,7 @@ typedef NS_ENUM(NSInteger, mk_sb_positioningStrategy) {
     mk_sb_positioningStrategy_bleAndGps,
     mk_sb_positioningStrategy_wifiAndBle,
     mk_sb_positioningStrategy_wifiAndBleAndGps,
+    mk_sb_positioningStrategy_BleGps,
 };
 
 typedef NS_ENUM(NSInteger, mk_sb_filterRelationship) {

@@ -1202,6 +1202,26 @@ NS_ASSUME_NONNULL_BEGIN
                      sucBlock:(void (^)(void))sucBlock
                   failedBlock:(void (^)(NSError *error))failedBlock;
 
+#pragma mark ****************************************室外定位参数************************************************
+
+/// Outdoor BLE Report Interval.
+/// - Parameters:
+///   - interval: 1min~100min.
+///   - sucBlock: Success callback
+///   - failedBlock: Failure callback
++ (void)sb_configOutdoorBLEReportInterval:(NSInteger)interval
+                                 sucBlock:(void (^)(void))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Outdoor GPS Report Interval.
+/// - Parameters:
+///   - interval: 1min~14400min.
+///   - sucBlock: Success callback
+///   - failedBlock: Failure callback
++ (void)sb_configOutdoorGPSReportInterval:(NSInteger)interval
+                                 sucBlock:(void (^)(void))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

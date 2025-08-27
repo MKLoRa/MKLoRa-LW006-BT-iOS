@@ -1760,6 +1760,30 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sb_readSosAlarmNotifyStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                     failedBlock:(void (^)(NSError * error))failedBlock;
 
+#pragma mark ****************************************室外定位功能************************************************
+
+/// Outdoor BLE Report Interval.
+/*
+ @{
+ @"interval":@"3",   //Unit:min
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readOutdoorBLEReportIntervalWithSucBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Outdoor GPS Report Interval.
+/*
+ @{
+ @"interval":@"3",   //Unit:min
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)sb_readOutdoorGPSReportIntervalWithSucBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

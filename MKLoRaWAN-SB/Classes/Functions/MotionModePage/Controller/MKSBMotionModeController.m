@@ -485,7 +485,7 @@ MKTextButtonCellDelegate>
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 1;
     cellModel.msg = @"Pos-Strategy In Trip";
-    cellModel.dataList = @[@"WIFI",@"BLE",@"GPS",@"WIFI+GPS",@"BLE+GPS",@"WIFI+BLE",@"WIFI+BLE+GPS"];
+    cellModel.dataList = @[@"WIFI",@"BLE",@"GPS",@"WIFI+GPS",@"BLE+GPS",@"WIFI+BLE",@"WIFI+BLE+GPS",@"BLE&GPS"];
     cellModel.dataListIndex = self.dataModel.posStrategyInTrip;
     [self.section5List addObject:cellModel];
 }

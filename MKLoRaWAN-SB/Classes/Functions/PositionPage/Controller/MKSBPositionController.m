@@ -17,6 +17,7 @@
 #import "MKHudManager.h"
 #import "MKNormalTextCell.h"
 #import "MKTextSwitchCell.h"
+#import "MKTableSectionLineHeader.h"
 
 #import "MKSBConnectModel.h"
 
@@ -26,6 +27,7 @@
 #import "MKSBBleFixController.h"
 #import "MKSBLCGpsFixController.h"
 #import "MKSBLRGpsFixController.h"
+#import "MKSBOutdoorFixController.h"
 
 @interface MKSBPositionController ()<UITableViewDelegate,
 UITableViewDataSource,
@@ -36,6 +38,10 @@ mk_textSwitchCellDelegate>
 @property (nonatomic, strong)NSMutableArray *section0List;
 
 @property (nonatomic, strong)NSMutableArray *section1List;
+
+@property (nonatomic, strong)NSMutableArray *section2List;
+
+@property (nonatomic, strong)NSMutableArray *headerList;
 
 @property (nonatomic, strong)MKSBPositionPageModel *dataModel;
 
@@ -98,11 +104,26 @@ mk_textSwitchCellDelegate>
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
+    if (indexPath.section == 2 && indexPath.row == 0) {
+        MKSBOutdoorFixController *vc = [[MKSBOutdoorFixController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10.f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    MKTableSectionLineHeader *headerView = [MKTableSectionLineHeader initHeaderViewWithTableView:tableView];
+    headerView.headerModel = self.headerList[section];
+    return headerView;
 }
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return self.headerList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -111,6 +132,9 @@ mk_textSwitchCellDelegate>
     }
     if (section == 1) {
         return self.section1List.count;
+    }
+    if (section == 2) {
+        return self.section2List.count;
     }
     return 0;
 }
@@ -121,9 +145,14 @@ mk_textSwitchCellDelegate>
         cell.dataModel = self.section0List[indexPath.row];
         return cell;
     }
-    MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
-    cell.dataModel = self.section1List[indexPath.row];
-    cell.delegate = self;
+    if (indexPath.section == 1) {
+        MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
+        cell.dataModel = self.section1List[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
+    MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+    cell.dataModel = self.section2List[indexPath.row];
     return cell;
 }
 
@@ -179,6 +208,12 @@ mk_textSwitchCellDelegate>
 - (void)loadSectionDatas {
     [self loadSection0Datas];
     [self loadSection1Datas];
+    [self loadSection2Datas];
+    
+    for (NSInteger i = 0; i < 3; i ++) {
+        MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
+        [self.headerList addObject:headerModel];
+    }
     
     [self.tableView reloadData];
 }
@@ -206,6 +241,13 @@ mk_textSwitchCellDelegate>
     cellModel.msg = @"Offline Fix";
     cellModel.noteMsg = @"* Whether to enable positioning when the device fails to connect to the Lorawan network";
     [self.section1List addObject:cellModel];
+}
+
+- (void)loadSection2Datas {
+    MKNormalTextCellModel *cellModel1 = [[MKNormalTextCellModel alloc] init];
+    cellModel1.showRightIcon = YES;
+    cellModel1.leftMsg = @"BLE&GPS";
+    [self.section2List addObject:cellModel1];
 }
 
 #pragma mark - UI
@@ -242,6 +284,20 @@ mk_textSwitchCellDelegate>
         _section1List = [NSMutableArray array];
     }
     return _section1List;
+}
+
+- (NSMutableArray *)section2List {
+    if (!_section2List) {
+        _section2List = [NSMutableArray array];
+    }
+    return _section2List;
+}
+
+- (NSMutableArray *)headerList {
+    if (!_headerList) {
+        _headerList = [NSMutableArray array];
+    }
+    return _headerList;
 }
 
 - (MKSBPositionPageModel *)dataModel {

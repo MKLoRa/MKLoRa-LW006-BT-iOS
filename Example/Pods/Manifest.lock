@@ -529,6 +529,7 @@ PODS:
     - MKLoRaWAN-SB/Functions/MessageTypePage (= 0.0.3)
     - MKLoRaWAN-SB/Functions/MotionModePage (= 0.0.3)
     - MKLoRaWAN-SB/Functions/OnOffSettingsPage (= 0.0.3)
+    - MKLoRaWAN-SB/Functions/OutdoorFixPage (= 0.0.3)
     - MKLoRaWAN-SB/Functions/PeriodicModePage (= 0.0.3)
     - MKLoRaWAN-SB/Functions/PositionPage (= 0.0.3)
     - MKLoRaWAN-SB/Functions/ScanPage (= 0.0.3)
@@ -1953,6 +1954,45 @@ PODS:
     - MKLoRaWAN-SB/LoginManager
     - MKLoRaWAN-SB/SDK
     - MLInputDodger
+  - MKLoRaWAN-SB/Functions/OutdoorFixPage (0.0.3):
+    - HHTransition
+    - iOSDFULibrary (= 4.13.0)
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-SB/ConnectModule
+    - MKLoRaWAN-SB/CTMediator
+    - MKLoRaWAN-SB/DatabaseManager
+    - MKLoRaWAN-SB/Expand
+    - MKLoRaWAN-SB/Functions/OutdoorFixPage/Controller (= 0.0.3)
+    - MKLoRaWAN-SB/Functions/OutdoorFixPage/Model (= 0.0.3)
+    - MKLoRaWAN-SB/LoginManager
+    - MKLoRaWAN-SB/SDK
+    - MLInputDodger
+  - MKLoRaWAN-SB/Functions/OutdoorFixPage/Controller (0.0.3):
+    - HHTransition
+    - iOSDFULibrary (= 4.13.0)
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-SB/ConnectModule
+    - MKLoRaWAN-SB/CTMediator
+    - MKLoRaWAN-SB/DatabaseManager
+    - MKLoRaWAN-SB/Expand
+    - MKLoRaWAN-SB/Functions/OutdoorFixPage/Model
+    - MKLoRaWAN-SB/LoginManager
+    - MKLoRaWAN-SB/SDK
+    - MLInputDodger
+  - MKLoRaWAN-SB/Functions/OutdoorFixPage/Model (0.0.3):
+    - HHTransition
+    - iOSDFULibrary (= 4.13.0)
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-SB/ConnectModule
+    - MKLoRaWAN-SB/CTMediator
+    - MKLoRaWAN-SB/DatabaseManager
+    - MKLoRaWAN-SB/Expand
+    - MKLoRaWAN-SB/LoginManager
+    - MKLoRaWAN-SB/SDK
+    - MLInputDodger
   - MKLoRaWAN-SB/Functions/PeriodicModePage (0.0.3):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
@@ -2018,6 +2058,7 @@ PODS:
     - MKLoRaWAN-SB/Functions/BleFixPage/Controller
     - MKLoRaWAN-SB/Functions/LCGpsFixPage/Controller
     - MKLoRaWAN-SB/Functions/LRGpsFixPage/Controller
+    - MKLoRaWAN-SB/Functions/OutdoorFixPage/Controller
     - MKLoRaWAN-SB/Functions/PositionPage/Model
     - MKLoRaWAN-SB/Functions/WifiFixPage/Controller
     - MKLoRaWAN-SB/LoginManager
@@ -2472,13 +2513,13 @@ SPEC CHECKSUMS:
   MKBaseModuleLibrary: 2b79bcae588c755588413fbb643b510253271b23
   MKCustomUIModule: 8426eba1d3178b06d92741d31da32502920fb8fa
   MKIotCloudManager: 241bd4bb7fae48e6b031c69a40c26637aabe67be
-  MKLoRaWAN-SB: 69b785251151557c7617e53e05c439dec44e4f91
+  MKLoRaWAN-SB: a9f377aa173f3820100f01a9b317bd78c322679c
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
   WRNavigationBar: 10bfdf96addf14d640d07c2ef08a029c18d8af10
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: aa46e328d7d439500a548ae26f1a5c59024153a2
+PODFILE CHECKSUM: d7810ac1ae1bcd01dd7c1b2564e9112b9eec235d
 
 COCOAPODS: 1.16.1

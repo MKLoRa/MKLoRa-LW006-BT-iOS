@@ -1166,6 +1166,18 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
             @"end":@(end)
         };
         operationID = mk_sb_taskReadSosAlarmNotifyStatusOperation;
+    }else if ([cmd isEqualToString:@"d0"]) {
+        //读取室外蓝牙定位上报间隔
+        resultDic = @{
+            @"interval":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_sb_taskReadOutdoorBLEReportIntervalOperation;
+    }else if ([cmd isEqualToString:@"d1"]) {
+        //读取室外GPS定位上报间隔
+        resultDic = @{
+            @"interval":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_sb_taskReadOutdoorGPSReportIntervalOperation;
     }
     
     return [self dataParserGetDataSuccess:resultDic operationID:operationID];
@@ -1600,6 +1612,12 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
     }else if ([cmd isEqualToString:@"c2"]) {
         //暂停/恢复数据传输
         operationID = mk_sb_taskPauseSendLocalDataOperation;
+    }else if ([cmd isEqualToString:@"d0"]) {
+        //配置室外蓝牙定位上报间隔
+        operationID = mk_sb_taskConfigOutdoorBLEReportIntervalOperation;
+    }else if ([cmd isEqualToString:@"d1"]) {
+        //配置室外GPS定位上报间隔
+        operationID = mk_sb_taskConfigOutdoorGPSReportIntervalOperation;
     }
     
     return [self dataParserGetDataSuccess:@{@"success":@(success)} operationID:operationID];

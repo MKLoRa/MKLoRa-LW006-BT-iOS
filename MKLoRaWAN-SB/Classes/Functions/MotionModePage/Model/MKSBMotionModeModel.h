@@ -93,6 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
  4:BLE+GPS
  5:WIFI+BLE
  6:WIFI+BLE+GPS
+ 7:BLE&GPS
  */
 @property (nonatomic, assign)NSInteger posStrategyOnStationary;
 
