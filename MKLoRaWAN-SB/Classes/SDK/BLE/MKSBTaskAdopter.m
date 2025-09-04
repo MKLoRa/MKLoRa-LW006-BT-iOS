@@ -25,6 +25,9 @@ NSString *const mk_sb_contentKey = @"mk_sb_contentKey";
 + (NSDictionary *)parseReadDataWithCharacteristic:(CBCharacteristic *)characteristic {
     NSData *readData = characteristic.value;
     NSLog(@"+++++%@-----%@",characteristic.UUID.UUIDString,readData);
+    if (!MKValidData(readData) || readData.length == 0) {
+        return @{};
+    }
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A24"]]) {
         //产品型号
         NSString *tempString = [[NSString alloc] initWithData:readData encoding:NSUTF8StringEncoding];
